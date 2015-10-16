@@ -23,7 +23,8 @@ Firstly, install deps with dev env: `NODE_ENV=development npm install`
 
 ### How to run tests
 
-TODO
+Once: `npm test`
+Watch: `npm run test-watch`
 
 ## License
 
