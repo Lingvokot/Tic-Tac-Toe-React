@@ -3,7 +3,10 @@
   "version": "0.0.1",
   "description": "Tic Tac Toe game written with modern FrontEnd stack",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "watch": "webpack-dev-server --watch --color --hot --inline",
+    "build": "webpack"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Lingvokot/Tic-Tac-Toe-React.git"
