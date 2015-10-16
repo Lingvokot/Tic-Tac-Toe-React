@@ -28,3 +28,6 @@ node_modules
 
 # Private assets
 assets-ignore
+
+# Compilled filed
+dist
