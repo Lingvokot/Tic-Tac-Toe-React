@@ -11,6 +11,8 @@ Open [index.html](index.html)
 
 Firstly, install deps with dev env: `NODE_ENV=development npm install`
 
+If you don't have [autoenv](https://github.com/kennethreitz/autoenv) installed, invoke [.env](.env) by hand: `source .env`
+
 #### Watch
 
 1. Run dev script: `npm run-script watch`
