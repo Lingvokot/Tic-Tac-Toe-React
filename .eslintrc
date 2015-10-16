@@ -32,6 +32,13 @@
     "max-nested-callbacks": [2, 1],
   },
   "env": {
+    "browser": true,
+    "es6": true,
+    "commonjs": true,
+    "mocha": true,
     "node": true
-  }
+  },
+  "plugins": [
+    "react"
+  ]
 }
