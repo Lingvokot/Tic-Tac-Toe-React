@@ -12,12 +12,11 @@ describe("HelloWorld component", () => {
   jsdom();
 
   it("should exist", () => {
-    assert.ok( !!HelloWorld );
+    expect(HelloWorld).to.exist;
   });
 
   it("should be react element", () => {
-    assert.ok( ReactTestUtils.isElement(<HelloWorld />),
-      "is not a react element" );
+    ReactTestUtils.isElement(<HelloWorld />).should.be.ok;
   });
 
   describe("rendering", () => {
@@ -25,7 +24,7 @@ describe("HelloWorld component", () => {
     it("should display 'text' prop in DOM somehow", () => {
       const container = document.createElement("div");
       ReactDOM.render(<HelloWorld text="TEST" />, container);
-      assert.ok( /TEST/.test(container.innerHTML), "It don't displays 'text' prop in DOM");
+      container.innerHTML.should.contain("TEST");
     });
 
   });
