@@ -6,10 +6,6 @@ const Button = React.createClass({
     useWrapper: React.PropTypes.string
   },
 
-  wrapperStyle: {
-    margin: "1rem auto"
-  },
-
   buttonStyle: {
     fontSize: "1.5rem",
     boxShadow: "0.2rem 0.2rem 0.2rem rgba(0,0,0,0.8)"
@@ -17,11 +13,11 @@ const Button = React.createClass({
 
   buttonWithWrapper: function () {
     return (
-      <div style={this.wrapperStyle}>
+      <ButtonWrapper>
         <button style={this.buttonStyle}>
           {this.props.text}
         </button>
-      </div>
+      </ButtonWrapper>
     );
   },
 
@@ -33,13 +29,26 @@ const Button = React.createClass({
     );
   },
 
-
   render () {
     return (
         this.props.useWrapper ?
-        this.buttonWithWrapper() : 
+        this.buttonWithWrapper() :
         this.buttonWithoutWrapper()
       );
+  }
+});
+
+const ButtonWrapper = React.createClass({
+  wrapperStyle: {
+    margin: "1rem auto"
+  },
+
+  render () {
+    return (
+      <div style={this.wrapperStyle}>
+        {this.props.children}
+      </div>
+    );
   }
 });
 
