@@ -30,6 +30,7 @@
     "max-len": [2, 80],
     "max-params": [2, 3],
     "max-nested-callbacks": [2, 3],
+    "no-magic-numbers": 2,
   },
   "env": {
     "browser": true,
