@@ -1,22 +1,20 @@
 import React from "react";
 
-const Container = React.createClass({
-  containerStyle: {
+const Container = (props) => {
+  var containerStyle = {
     display: "flex",
     flexFlow: "column nowrap",
     width: "30rem",
     height: "36rem",
     margin: "auto",
     backgroundColor: "#304467"
-  },
+  };
 
-  render () {
-    return (
-      <div style={this.containerStyle}>
-        {this.props.children}
-      </div>
-    );
-  }
-});
+  return (
+    <div style={containerStyle}>
+      {props.children}
+    </div>
+  );
+};
 
 export default Container;
