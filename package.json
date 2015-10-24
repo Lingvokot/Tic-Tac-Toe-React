@@ -4,8 +4,8 @@
   "description": "Tic Tac Toe game written with modern FrontEnd stack",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
-    "test-watch": "mocha --watch",
+    "test": "node_modules/.bin/babel-node ./node_modules/mocha/bin/_mocha",
+    "test-watch": "node_modules/.bin/babel-node ./node_modules/mocha/bin/_mocha --watch",
     "watch": "webpack-dev-server --watch --color --hot --inline",
     "build": "webpack"
   },
