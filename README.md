@@ -1,4 +1,4 @@
-# Tic-Tac-Toe-React
+# Tic-Tac-Toe-React [ ![Codeship Status for Lingvokot/Tic-Tac-Toe-React](https://codeship.com/projects/01e39e70-5c79-0133-c9c4-5e493a25d753/status?branch=master)](https://codeship.com/projects/110950)
 Tic Tac Toe built with modern FrontEnd stack
 
 ## How to's
