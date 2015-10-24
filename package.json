@@ -23,8 +23,8 @@
   "bugs": {
     "url": "https://github.com/Lingvokot/Tic-Tac-Toe-React/issues"
   },
-  "engines" : {
-    "node" : ">= 4.0"
+  "engines": {
+    "node": ">= 4.0"
   },
   "homepage": "https://github.com/Lingvokot/Tic-Tac-Toe-React#readme",
   "devDependencies": {
