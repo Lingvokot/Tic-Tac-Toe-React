@@ -28,6 +28,13 @@ If you don't have [autoenv](https://github.com/kennethreitz/autoenv) installed, 
 Once: `npm test`
 Watch: `npm run test-watch`
 
+### How to get coverage report
+
+Run:
+`npm run test-cov`
+
+And see results in *coverage* directory.
+
 ## License
 
 MIT. See [LICENSE](LICENSE) for more info.
