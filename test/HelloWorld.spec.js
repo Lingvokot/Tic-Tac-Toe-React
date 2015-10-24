@@ -5,7 +5,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import ReactTestUtils from "react-addons-test-utils";
 
-import HelloWorld from "../src/components/HelloWorld.jsx";
+import HelloWorld from "../src/components/HelloWorld.js";
 
 describe("HelloWorld component", () => {
 
