@@ -6,6 +6,7 @@
   "scripts": {
     "test": "node_modules/.bin/babel-node ./node_modules/mocha/bin/_mocha",
     "test-watch": "node_modules/.bin/babel-node ./node_modules/mocha/bin/_mocha --watch",
+    "test-cov": "node_modules/.bin/babel-node node_modules/isparta/bin/isparta cover ./node_modules/mocha/bin/_mocha --",
     "watch": "webpack-dev-server --watch --color --hot --inline",
     "build": "webpack"
   },
@@ -34,6 +35,7 @@
     "chai": "^3.3.0",
     "eslint": "^1.7.3",
     "eslint-plugin-react": "^3.5.1",
+    "isparta": "^3.1.0",
     "jsdom": "^6.5.1",
     "mocha": "^2.3.3",
     "mocha-jsdom": "^1.0.0",
