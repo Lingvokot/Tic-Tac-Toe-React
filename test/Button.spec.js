@@ -1,13 +1,12 @@
 // component test
 import jsdom from "mocha-jsdom";
-import assert from "assert";
 import React from "react";
 import ReactDOM from "react-dom";
 import ReactTestUtils from "react-addons-test-utils";
 
 import Button from "../src/components/Shared/Button.js";
 
-describe("HelloWorld component", () => {
+describe("Button component", () => {
 
   jsdom();
 
@@ -30,8 +29,7 @@ describe("HelloWorld component", () => {
     it("should have wrapper if useWrapper is specified", () => {
       const container = document.createElement("div");
       ReactDOM.render(<Button useWrapper />, container);
-      container.innerHTML.should.contain("<div");
-      container.innerHTML.should.contain("</div>");
+      container.innerHTML.should.match(/<div.*?><button.*?><\/button><\/div>/);
     });
 
   });
