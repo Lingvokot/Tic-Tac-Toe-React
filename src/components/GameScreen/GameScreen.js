@@ -21,7 +21,9 @@ const GameScreen = React.createClass({
   render () {
     return (
       <Container>
-        <Header text="Tic Tac Toe React" style={this.containerStyle} />
+        <Header style={this.containerStyle}
+            text="Tic Tac Toe React"
+        />
         <Sidebar />
         <MiddleContainer>
           <GameGrid />

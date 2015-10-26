@@ -15,9 +15,21 @@ const GameStats = React.createClass({
   render () {
     return (
       <div style={this.gameStatsStyle}>
-        <span>Wins</span>
-        <p style={this.paragraphStyle}>X <span>1</span></p>
-        <p style={this.paragraphStyle}>O <span>2</span></p>
+        <span>
+          Wins
+        </span>
+        <p style={this.paragraphStyle}>
+          X 
+          <span>
+            1
+          </span>
+        </p>
+        <p style={this.paragraphStyle}>
+          O
+          <span>
+            2
+          </span>
+        </p>
       </div>
     );
   }

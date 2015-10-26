@@ -61,20 +61,17 @@ const GridCell = React.createClass({
   }
 });
 
-const Image = React.createClass({
-  PropTypes: {
-    image: React.PropTypes.string
-  },
-
-  imageStyle: {
+const Image = (props) => {
+  var imageStyle = {
     width: "95%"
-  },
-
-  render () {
-    return (
-      <img style={this.imageStyle} src={this.props.image}></img>
-    );
   }
-});
+
+  return (
+    <img src={props.image}
+        style={imageStyle}
+    />
+  );
+
+};
 
 export default GameGrid;
