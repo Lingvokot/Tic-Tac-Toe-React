@@ -1,14 +1,10 @@
 // component test
-import jsdom from "mocha-jsdom";
 import React from "react";
-import ReactDOM from "react-dom";
 import ReactTestUtils from "react-addons-test-utils";
 
 import Button from "../src/components/Shared/Button.js";
 
 describe("Button component", () => {
-
-  jsdom();
 
   it("should exist", () => {
     Button.should.exist;
@@ -20,16 +16,33 @@ describe("Button component", () => {
 
   describe("rendering", () => {
 
-    it("should display 'text' prop in DOM somehow", () => {
-      const container = document.createElement("div");
-      ReactDOM.render(<Button text="TEST" />, container);
-      container.innerHTML.should.contain("TEST");
+    it("contain passed text as only child", () => {
+      const renderer = ReactTestUtils.createRenderer();
+      renderer.render(<Button text="TEST" />);
+      const button = renderer.getRenderOutput();
+
+      button.props.children
+        .should.be.equal("TEST");
+    });
+
+    it("should render Button as noncomposite component", () => {
+      const renderer = ReactTestUtils.createRenderer();
+      renderer.render(<Button />);
+      const output = renderer.getRenderOutput();
+
+      ReactTestUtils
+        .isCompositeComponent(output)
+          .should.be.not.ok;
     });
 
     it("should have wrapper if useWrapper is specified", () => {
-      const container = document.createElement("div");
-      ReactDOM.render(<Button useWrapper />, container);
-      container.innerHTML.should.match(/<div.*?><button.*?><\/button><\/div>/);
+      const renderer = ReactTestUtils.createRenderer();
+      renderer.render(<Button useWrapper />);
+      const output = renderer.getRenderOutput();
+
+      ReactTestUtils
+        .isCompositeComponentWithType(output, Button)
+          .should.be.not.ok;
     });
 
   });
