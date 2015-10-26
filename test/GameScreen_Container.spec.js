@@ -6,7 +6,7 @@ import ReactTestUtils from "react-addons-test-utils";
 
 import Container from "../src/components/GameScreen/Container.js";
 
-describe("Container component", () => {
+describe("Container component for Game Screen", () => {
 
   jsdom();
 
