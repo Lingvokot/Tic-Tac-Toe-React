@@ -2,16 +2,16 @@
 import React from "react";
 import ReactTestUtils from "react-addons-test-utils";
 
-import MiddleContainer from "../src/components/GameScreen/MiddleContainer.js";
+import Sidebar from "../../../src/components/GameScreen/Sidebar.js";
 
-describe("Container component", () => {
+describe("Sidebar component", () => {
 
   it("should exist", () => {
-    MiddleContainer.should.exist;
+    Sidebar.should.exist;
   });
 
   it("should be react element", () => {
-    ReactTestUtils.isElement(<MiddleContainer />).should.be.ok;
+    ReactTestUtils.isElement(<Sidebar />).should.be.ok;
   });
 
   describe("rendering", () => {
@@ -20,7 +20,7 @@ describe("Container component", () => {
       const children = <div>test</div>;
 
       const renderer = ReactTestUtils.createRenderer();
-      renderer.render(<MiddleContainer>{children}</MiddleContainer>);
+      renderer.render(<Sidebar>{children}</Sidebar>);
       const output = renderer.getRenderOutput();
 
       output.props.children

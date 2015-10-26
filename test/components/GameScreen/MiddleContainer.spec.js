@@ -2,25 +2,25 @@
 import React from "react";
 import ReactTestUtils from "react-addons-test-utils";
 
-import Container from "../src/components/GameScreen/Container.js";
+import MiddleContainer from "../../../src/components/GameScreen/MiddleContainer.js";
 
-describe("Container component for Game Screen", () => {
+describe("Container component", () => {
 
   it("should exist", () => {
-    Container.should.exist;
+    MiddleContainer.should.exist;
   });
 
   it("should be react element", () => {
-    ReactTestUtils.isElement(<Container />).should.be.ok;
+    ReactTestUtils.isElement(<MiddleContainer />).should.be.ok;
   });
 
   describe("rendering", () => {
 
-    it("should display child elements in DOM", () => {
+    it("should display child elements in DOM somehow", () => {
       const children = <div>test</div>;
 
       const renderer = ReactTestUtils.createRenderer();
-      renderer.render(<Container>{children}</Container>);
+      renderer.render(<MiddleContainer>{children}</MiddleContainer>);
       const output = renderer.getRenderOutput();
 
       output.props.children

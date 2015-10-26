@@ -2,7 +2,7 @@
 import React from "react";
 import ReactTestUtils from "react-addons-test-utils";
 
-import Header from "../src/components/GameScreen/Header.js";
+import Header from "../../../src/components/GameScreen/Header.js";
 
 describe("Header component", () => {
 

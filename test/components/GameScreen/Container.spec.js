@@ -2,9 +2,9 @@
 import React from "react";
 import ReactTestUtils from "react-addons-test-utils";
 
-import Container from "../src/components/MenuScreen/Container.js";
+import Container from "../../../src/components/GameScreen/Container.js";
 
-describe("Container component for Menu Screen", () => {
+describe("Container component for Game Screen", () => {
 
   it("should exist", () => {
     Container.should.exist;
@@ -16,7 +16,7 @@ describe("Container component for Menu Screen", () => {
 
   describe("rendering", () => {
 
-    it("should display child elements in DOM somehow", () => {
+    it("should display child elements in DOM", () => {
       const children = <div>test</div>;
 
       const renderer = ReactTestUtils.createRenderer();
