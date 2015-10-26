@@ -2,12 +2,12 @@
         Главный компонент приложения
  */
 import React from "react";
-import MenuScreen from "./MenuScreen/MenuScreen.jsx";
+import GameScreen from "./GameScreen/GameScreen.js";
 
 const App = React.createClass({
   render () {
     return (
-      <MenuScreen />
+      <GameScreen />
     );
   }
 });

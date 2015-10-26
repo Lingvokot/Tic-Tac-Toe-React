@@ -1,7 +1,7 @@
 import React from "react";
 
-import Container from "./Container.jsx";
-import Button from "./../Shared/Button.jsx";
+import Container from "./Container.js";
+import Button from "./../Shared/Button.js";
 
 const GameScreen = React.createClass({
   headerStyle: {
@@ -13,11 +13,12 @@ const GameScreen = React.createClass({
     return (
       <Container>
         <h1 style={this.headerStyle}>Tic Tac Toe React</h1>
-        <Button useWrapper={true} text="Play with Human" />
+        <Button  text={"Play with Human"}
+            useWrapper/>
         <h2 style={this.headerStyle}>Play with computer</h2>
-        <Button useWrapper={true} text="EASY" />
-        <Button useWrapper={true} text="MEDIUM" />
-        <Button useWrapper={true} text="HARD" />
+        <Button useWrapper text="EASY" />
+        <Button useWrapper text="MEDIUM" />
+        <Button useWrapper text="HARD" />
       </Container>
     );
   }

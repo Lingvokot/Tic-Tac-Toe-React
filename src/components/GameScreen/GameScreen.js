@@ -1,13 +1,13 @@
 import React from "react";
 
-import Container from "./Container.jsx";
-import Header from "./Header.jsx";
-import Sidebar from "./Sidebar.jsx";
-import MiddleContainer from "./MiddleContainer.jsx";
+import Container from "./Container.js";
+import Header from "./Header.js";
+import Sidebar from "./Sidebar.js";
+import MiddleContainer from "./MiddleContainer.js";
 
-import GameGrid from "./GameGrid.jsx";
-import GameStats from "./GameStats.jsx";
-import Button from "./../Shared/Button.jsx";
+import GameGrid from "./GameGrid.js";
+import GameStats from "./GameStats.js";
+import Button from "./../Shared/Button.js";
 
 const GameScreen = React.createClass({
   containerStyle: {
