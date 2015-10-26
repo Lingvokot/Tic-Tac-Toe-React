@@ -32,6 +32,10 @@ const GridCell = React.createClass({
     }
   },
 
+  shouldComponentUpdate: function(nextProps, nextState) {
+    return nextState.cellValue !== this.state.cellValue;
+  },
+
   gridCellStyle: {
     display: "flex",
     justifyContent: "center",
