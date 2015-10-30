@@ -9,7 +9,16 @@ import GameGrid from "./GameGrid.js";
 import GameStats from "./GameStats.js";
 import Button from "./../Shared/Button.js";
 
+const MENU_BUTTON = "Menu";
+
 const GameScreen = React.createClass({
+  PropTypes: {
+    buttonClickHandler: React.PropTypes.func.isRequired,
+    cellClickHandler: React.PropTypes.func.isRequired,
+    cellValues: React.PropTypes.array,
+    victoryStatistics: React.PropTypes.object
+  },
+
   containerStyle: {
     fontSize: "3rem",
     fontWeight: "bold",
@@ -26,11 +35,14 @@ const GameScreen = React.createClass({
         />
         <Sidebar />
         <MiddleContainer>
-          <GameGrid />
+          <GameGrid cellClickHandler={this.props.cellClickHandler}
+             cellValues={this.props.cellValues} />
         </MiddleContainer>
         <Sidebar>
-          <GameStats />
-          <Button text="Menu" />
+          <GameStats victoryStatistics={this.props.victoryStatistics} />
+          <Button buttonClickHandler={this.props.buttonClickHandler}
+              text={MENU_BUTTON}
+          />
         </Sidebar>
       </Container>
     );

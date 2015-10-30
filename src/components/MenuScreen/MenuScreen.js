@@ -5,7 +5,11 @@ import Button from "./../Shared/Button.js";
 
 const screenTitle = "Tic Tac Toe React";
 
-const GameScreen = React.createClass({
+const MenuScreen = React.createClass({
+  PropTypes: {
+    buttonClickHandler: React.PropTypes.func.isRequired
+  },
+
   headerStyle: {
     textAlign: "center",
     color: "white"
@@ -17,19 +21,23 @@ const GameScreen = React.createClass({
         <h1 style={this.headerStyle}>
           {screenTitle}
         </h1>
-        <Button  text="Play with Human"
+        <Button buttonClickHandler={this.props.buttonClickHandler}
+            text="Play with Human"
             useWrapper
         />
         <h2 style={this.headerStyle}>
           {"Play with computer"}
         </h2>
-        <Button text="EASY"
+        <Button buttonClickHandler={this.props.buttonClickHandler}
+            text="EASY"
             useWrapper
         />
-        <Button text="MEDIUM"
+        <Button buttonClickHandler={this.props.buttonClickHandler}
+            text="MEDIUM"
             useWrapper
         />
-        <Button text="HARD"
+        <Button buttonClickHandler={this.props.buttonClickHandler} 
+            text="HARD"
             useWrapper
         />
       </Container>
@@ -37,4 +45,4 @@ const GameScreen = React.createClass({
   }
 });
 
-export default GameScreen;
+export default MenuScreen;

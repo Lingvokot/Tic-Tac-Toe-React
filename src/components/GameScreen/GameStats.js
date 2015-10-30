@@ -1,6 +1,10 @@
 import React from "react";
 
 const GameStats = React.createClass({
+  PropTypes: {
+    victoryStatistics: React.PropTypes.object
+  },
+
   gameStatsStyle: {
     fontSize: "1.5rem",
     margin: "1rem"
@@ -19,15 +23,15 @@ const GameStats = React.createClass({
           Wins
         </span>
         <p style={this.paragraphStyle}>
-          X 
+          X
           <span>
-            1
+            {this.props.victoryStatistics.x}
           </span>
         </p>
         <p style={this.paragraphStyle}>
           O
           <span>
-            2
+            {this.props.victoryStatistics.o}
           </span>
         </p>
       </div>

@@ -4,6 +4,11 @@ const imageX = "images/x.png";
 const imageO = "images/o.png";
 
 const GameGrid = React.createClass({
+  PropTypes: {
+    cellClickHandler: React.PropTypes.func.isRequired,
+    cellValues: React.PropTypes.array
+  },
+
   gameGridStyle: {
     display: "flex",
     flexFlow: "row wrap",
@@ -14,26 +19,36 @@ const GameGrid = React.createClass({
     backgroundColor: "#123456"
   },
 
+  renderGrid(girdSize) {
+
+    var grid = [];
+    for(let i = 0; i < girdSize; i++) {
+      for(let j = 0; j < girdSize; j++) {
+        grid.push(
+          <GridCell cellClickHandler={this.props.cellClickHandler}
+            cellValue={this.props.cellValues[i][j]}
+            key={i+""+j}
+            x={i} y={j}
+          />);
+      }
+    }
+    return grid;
+  },
+
   render () {
     return (
       <div style={this.gameGridStyle}>
-        <GridCell/><GridCell/><GridCell/>
-        <GridCell/><GridCell/><GridCell/>
-        <GridCell/><GridCell/><GridCell/>
+        {this.renderGrid(this.props.cellValues.length)}
       </div>
     );
   }
 });
 
 const GridCell = React.createClass({
-  getInitialState: function () {
-    return {
-      cellValue: "none"
-    }
-  },
-
-  shouldComponentUpdate: function(nextProps, nextState) {
-    return nextState.cellValue !== this.state.cellValue;
+  PropTypes: {
+    cellClickHandler: React.PropTypes.func.isRequired,
+    x: React.PropTypes.number,
+    y: React.PropTypes.number
   },
 
   gridCellStyle: {
@@ -46,7 +61,7 @@ const GridCell = React.createClass({
   },
 
   renderImage: function() {
-    switch(this.state.cellValue) {
+    switch(this.props.cellValue) {
       case "x":
         return <Image image={imageX} />;
       case "o":
@@ -56,9 +71,14 @@ const GridCell = React.createClass({
     }
   },
 
+  cellClicked() {
+     this.props.cellClickHandler(this.props.x, this.props.y);
+  },
+
   render () {
     return (
-      <div style={this.gridCellStyle}>
+      <div onClick={this.cellClicked}
+        style={this.gridCellStyle}>
         {this.renderImage()}
       </div>
     );
