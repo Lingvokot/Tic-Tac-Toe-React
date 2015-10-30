@@ -31,3 +31,6 @@ assets-ignore
 
 # Compilled filed
 dist
+
+# OS X system files
+*.DS_Store
