@@ -24,7 +24,7 @@ describe("Game Actions", () => {
       type: GRID_CHANGED
     };
 
-    action.should.be.equal(gridChangedAt00);
+    action.should.be.eql(gridChangedAt00);
 
     action = gridChangedAction(2,1);
 
@@ -34,7 +34,7 @@ describe("Game Actions", () => {
       type: GRID_CHANGED
     };
 
-    action.should.be.equal(gridChangedAt21);
+    action.should.be.eql(gridChangedAt21);
   });
 
 
