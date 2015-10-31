@@ -23,7 +23,7 @@ describe("Screen Actions", () => {
       type: SET_CURRENT_SCREEN
     };
 
-    action.should.be.equal(setMenuScreenAction);
+    action.should.be.eql(setMenuScreenAction);
 
     action = setCurrentScreenAction("GAME_SCREEN");
 
@@ -32,7 +32,7 @@ describe("Screen Actions", () => {
       type: SET_CURRENT_SCREEN
     };
 
-    action.should.be.equal(setGameScreenAction);
+    action.should.be.eql(setGameScreenAction);
   });
 
 
