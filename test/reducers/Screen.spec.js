@@ -12,7 +12,7 @@ describe("screen reducer", () => {
   });
 
   it("should return MENU_SCREEN as default state", () => {
-    screen().should.be.equal(MENU_SCREEN);
+    screen(undefined, {type: "nothing"}).should.be.equal(MENU_SCREEN);
   });
 
   it("should change screen to specified in action.screen", () => {
