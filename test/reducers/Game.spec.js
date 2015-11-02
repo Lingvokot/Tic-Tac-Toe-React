@@ -1,5 +1,5 @@
 import game from "../../src/reducers/Game.js";
-import {gridChangedAction, GRID_CHANGED} from "../../src/actions/GameActions.js";
+import changeGridAction from "../../src/actions/GameActions.js";
 
 describe("game reducer", () => {
 
@@ -24,22 +24,22 @@ describe("game reducer", () => {
       },
       gameOver: false
     },
-    previousState = state;
+    previousState;
 
     it("should change grid cell if specified", () => {
       previousState = state;
-      state = game(state, gridChangedAction(0,0));
-      state.should.be.not.eql(previousState);
+      state = game(state, changeGridAction(0,0));
+      state.should.be.not.equal(previousState);
       state.currentTurn.should.be.equal("o");
-      state.gameGrid.should.be.equal([["x","",""],
+      state.gameGrid.should.be.eql([["x","",""],
                                       ["","",""],
                                       ["","",""]])
     });
 
     it("should change nothing if cell is already used", () => {
       previousState = state;
-      state = game(state, gridChangedAction(0,0));
-      state.should.be.eql(previousState);
+      state = game(state, changeGridAction(0,0));
+      state.should.be.equal(previousState);
       state.currentTurn.should.be.equal("o");
     });
 
@@ -50,15 +50,11 @@ describe("game reducer", () => {
       state.currentTurn = "x";
       previousState = state;
 
-      state = game(state, gridChangedAction(0,2));
-      state.should.be.not.eql(previousState);
+      state = game(state, changeGridAction(0,2));
+      state.should.be.not.equal(previousState);
 
       previousState.victoryStatistics.x
         .should.be.equal(state.victoryStatistics.x-1);
-
-      state.gameGrid.should.be.equal([["x","x","x"],
-                                      ["o","o",""],
-                                      ["","",""]]);
     });
 
     it("should be able to handle victory if 3 'x' or 'o' in one row", () => {
@@ -68,15 +64,11 @@ describe("game reducer", () => {
       state.currentTurn = "o";
       previousState = state;
 
-      state = game(state, gridChangedAction(1,2));
-      state.should.be.not.eql(previousState);
+      state = game(state, changeGridAction(1,2));
+      state.should.be.not.equal(previousState);
 
       previousState.victoryStatistics.o
         .should.be.equal(state.victoryStatistics.o-1);
-
-      state.gameGrid.should.be.equal([["x","x",""],
-                                      ["o","o","o"],
-                                      ["x","",""]]);
       });
 
     it("should be able to handle victory if 3 'x' or 'o' in one row", () => {
@@ -86,15 +78,11 @@ describe("game reducer", () => {
       state.currentTurn = "x";
       previousState = state;
 
-      state = game(state, gridChangedAction(2,2));
-      state.should.be.not.eql(previousState);
+      state = game(state, changeGridAction(2,2));
+      state.should.be.not.equal(previousState);
 
       previousState.victoryStatistics.x
         .should.be.equal(state.victoryStatistics.x-1);
-
-      state.gameGrid.should.be.equal([["x","o",""],
-                                      ["o","o",""],
-                                      ["x","x","x"]]);
     });
 
     it("should be able to handle victory if 3 'x' or 'o' in one column", () => {
@@ -104,15 +92,11 @@ describe("game reducer", () => {
       state.currentTurn = "o";
       previousState = state;
 
-      state = game(state, gridChangedAction(2,1));
-      state.should.be.not.eql(previousState);
+      state = game(state, changeGridAction(2,1));
+      state.should.be.not.equal(previousState);
 
       previousState.victoryStatistics.o
         .should.be.equal(state.victoryStatistics.o-1);
-
-      state.gameGrid.should.be.equal([["x","o",""],
-                                      ["","o","x"],
-                                      ["x","o",""]]);
     });
 
     it("should be able to handle victory if 3 'x' or 'o' in one column", () => {
@@ -122,15 +106,11 @@ describe("game reducer", () => {
       state.currentTurn = "x";
       previousState = state;
 
-      state = game(state, gridChangedAction(1,0));
-      state.should.be.not.eql(previousState);
+      state = game(state, changeGridAction(1,0));
+      state.should.be.not.equal(previousState);
 
       previousState.victoryStatistics.x
         .should.be.equal(state.victoryStatistics.x-1);
-
-      state.gameGrid.should.be.equal([["x","o","o"],
-                                      ["x","o","x"],
-                                      ["x","",""]]);
     });
 
     it("should be able to handle victory if 3 'x' or 'o' in one column", () => {
@@ -140,33 +120,25 @@ describe("game reducer", () => {
       state.currentTurn = "o";
       previousState = state;
 
-      state = game(state, gridChangedAction(1,2));
-      state.should.be.not.eql(previousState);
+      state = game(state, changeGridAction(1,2));
+      state.should.be.not.equal(previousState);
 
       previousState.victoryStatistics.o
         .should.be.equal(state.victoryStatistics.o-1);
-
-      state.gameGrid.should.be.equal([["x","","o"],
-                                      ["","x",""],
-                                      ["x","","o"]]);
     });
 
     it("should be able to handle victory if 3 'x' or 'o' in diagonal", () => {
       state.gameGrid = [["x","o","o"],
                         ["o","",""],
                         ["x","","x"]];
-      state.currentTurn = "o";
+      state.currentTurn = "x";
       previousState = state;
 
-      state = game(state, gridChangedAction(1,1));
-      state.should.be.not.eql(previousState);
+      state = game(state, changeGridAction(1,1));
+      state.should.be.not.equal(previousState);
 
       previousState.victoryStatistics.x
         .should.be.equal(state.victoryStatistics.x-1);
-
-      state.gameGrid.should.be.equal([["x","o","o"],
-                                      ["o","x",""],
-                                      ["x","","o"]]);
     });
 
     it("should be able to handle victory if 3 'x' or 'o' in diagonal", () => {
@@ -176,15 +148,10 @@ describe("game reducer", () => {
       state.currentTurn = "o";
       previousState = state;
 
-      state = game(state, gridChangedAction(1,1));
-      state.should.be.not.eql(previousState);
-
+      state = game(state, changeGridAction(1,1));
+      state.should.be.not.equal(previousState);
       previousState.victoryStatistics.o
         .should.be.equal(state.victoryStatistics.o-1);
-
-      state.gameGrid.should.be.equal([["x","","o"],
-                                      ["x","o",""],
-                                      ["o","","x"]]);
     });
 
     it("should be able to handle tie", () => {
@@ -194,17 +161,13 @@ describe("game reducer", () => {
       state.currentTurn = "x";
       previousState = state;
 
-      state = game(state, gridChangedAction(1,1));
-      state.should.be.not.eql(previousState);
+      state = game(state, changeGridAction(1,2));
+      state.should.be.not.equal(previousState);
 
       previousState.victoryStatistics.o
         .should.be.equal(state.victoryStatistics.o);
       previousState.victoryStatistics.x
         .should.be.equal(state.victoryStatistics.x);
-
-      state.gameGrid.should.be.equal([["x","o","x"],
-                                      ["o","x","x"],
-                                      ["o","x","o"]]);
     });
 
     it("should be able to handle tie", () => {
@@ -214,17 +177,13 @@ describe("game reducer", () => {
       state.currentTurn = "x";
       previousState = state;
 
-      state = game(state, gridChangedAction(2,1));
-      state.should.be.not.eql(previousState);
+      state = game(state, changeGridAction(2,1));
+      state.should.be.not.equal(previousState);
 
       previousState.victoryStatistics.o
         .should.be.equal(state.victoryStatistics.o);
       previousState.victoryStatistics.x
         .should.be.equal(state.victoryStatistics.x);
-
-      state.gameGrid.should.be.equal([["x","o","x"],
-                                      ["o","x","x"],
-                                      ["o","x","o"]]);
     });
 
   });
