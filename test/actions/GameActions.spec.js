@@ -1,22 +1,22 @@
-import {gridChangedAction, GRID_CHANGED} from "../../src/actions/GameActions.js";
+import {changeGridAction, GRID_CHANGED} from "../../src/actions/GameActions.js";
 
 describe("Game Actions", () => {
 
   it("should exist", () => {
-    gridChangedAction.should.exist;
+    changeGridAction.should.exist;
   });
 
   it("should be a function", () => {
-    gridChangedAction.should.be.function;
+    changeGridAction.should.be.function;
   });
 
   it("should create action of type GRID_CHANGED", () => {
-    const action = gridChangedAction();
+    const action = changeGridAction();
     action.type.should.be.equal(GRID_CHANGED);
   });
 
   it("should have props x, y equal to function arguments", () => {
-    var action = gridChangedAction(0,0);
+    var action = changeGridAction(0,0);
 
     const gridChangedAt00 = {
       x: 0,
@@ -26,7 +26,7 @@ describe("Game Actions", () => {
 
     action.should.be.eql(gridChangedAt00);
 
-    action = gridChangedAction(2,1);
+    action = changeGridAction(2,1);
 
     const gridChangedAt21 = {
       x: 2,
