@@ -5,6 +5,7 @@ export const GRID_CHANGED = "GRID_CHANGED";
 export function changeGridAction(x, y) {
   return {
     x: x,
-    y: y, type:
-    GRID_CHANGED};
+    y: y,
+    type: GRID_CHANGED
+  };
 }
