@@ -5,9 +5,7 @@ import React from "react";
 import MenuScreen from "./MenuScreen/MenuScreen.js";
 import GameScreen from "./GameScreen/GameScreen.js";
 import { connect } from "react-redux";
-
-export const MENU_SCREEN = "MENU_SCREEN";
-export const GAME_SCREEN = "GAME_SCREEN";
+import {MENU_SCREEN, GAME_SCREEN} from "../actions/ScreenActions.js";
 
 const App = React.createClass({
   PropTypes: {
@@ -27,6 +25,7 @@ const App = React.createClass({
           cellValues={this.props.gameGrid}
           victoryStatistics={this.props.victoryStatistics}
       />);
+    case MENU_SCREEN:
     default:
       return <MenuScreen buttonClickHandler={this.props.buttonClickHandler} />
     }
