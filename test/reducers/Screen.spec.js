@@ -1,6 +1,6 @@
 import screen from "../../src/reducers/Screen.js";
-import {setCurrentScreenAction, MENU_SCREEN,
-        GAME_SCREEN} from "../../src/actions/ScreenActions.js";
+import setCurrentScreenAction from "../../src/actions/ScreenActions.js";
+import { MENU_SCREEN, GAME_SCREEN } from "../../src/actions/ScreenActions.js";
 
 describe("screen reducer", () => {
 

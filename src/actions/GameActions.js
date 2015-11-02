@@ -2,10 +2,12 @@
 export const GRID_CHANGED = "GRID_CHANGED";
 
 // GRID_CHANGED action creator
-export function changeGridAction(x, y) {
+const changeGridAction = function (x, y) {
   return {
     x: x,
     y: y,
     type: GRID_CHANGED
   };
 }
+
+export default changeGridAction;
