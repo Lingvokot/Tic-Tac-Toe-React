@@ -45,7 +45,7 @@ describe("app reducer", () => {
 
     it("should return the same state if no action", () => {
       previousState = state;
-      state = app(state, {});
+      state = app(state, {type: "bla-bla-bla"});
       previousState.should.be.eql(state);
     });
 
