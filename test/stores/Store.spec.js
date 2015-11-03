@@ -1,4 +1,4 @@
-import store from "../../src/stores/Store.js";
+import store from "src/stores/Store.js";
 
 describe("store", () => {
 

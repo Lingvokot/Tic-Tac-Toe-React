@@ -1,7 +1,7 @@
 import React from "react";
 import ReactTestUtils from "react-addons-test-utils";
 
-import GameStats from "../../../src/components/GameScreen/GameStats.js";
+import GameStats from "src/components/GameScreen/GameStats.js";
 
 describe("GameStats component", () => {
 

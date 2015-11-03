@@ -1,5 +1,5 @@
-import game from "../../src/reducers/Game.js";
-import changeGridAction from "../../src/actions/GameActions.js";
+import game from "src/reducers/Game.js";
+import changeGridAction from "src/actions/GameActions.js";
 
 describe("game reducer", () => {
 

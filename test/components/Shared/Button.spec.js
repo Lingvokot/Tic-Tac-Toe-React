@@ -2,7 +2,7 @@
 import React from "react";
 import ReactTestUtils from "react-addons-test-utils";
 
-import Button from "../../../src/components/Shared/Button.js";
+import Button from "src/components/Shared/Button.js";
 
 describe("Button component", () => {
 

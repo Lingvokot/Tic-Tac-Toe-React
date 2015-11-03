@@ -1,10 +1,10 @@
-import app from "../../src/reducers/App.js";
-import game from "../../src/reducers/Game.js";
-import screen from "../../src/reducers/Screen.js";
-import setCurrentScreenAction from "../../src/actions/ScreenActions.js";
-import { MENU_SCREEN, GAME_SCREEN } from "../../src/actions/ScreenActions.js";
-import changeGridAction from "../../src/actions/GameActions.js";
-import { initialGameState } from "../../src/reducers/Game.js";
+import app from "src/reducers/App.js";
+import game from "src/reducers/Game.js";
+import screen from "src/reducers/Screen.js";
+import setCurrentScreenAction from "src/actions/ScreenActions.js";
+import { MENU_SCREEN, GAME_SCREEN } from "src/actions/ScreenActions.js";
+import changeGridAction from "src/actions/GameActions.js";
+import { initialGameState } from "src/reducers/Game.js";
 
 describe("app reducer", () => {
 

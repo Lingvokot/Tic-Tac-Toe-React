@@ -2,7 +2,7 @@
 import React from "react";
 import ReactTestUtils from "react-addons-test-utils";
 
-import MiddleContainer from "../../../src/components/GameScreen/MiddleContainer.js";
+import MiddleContainer from "src/components/GameScreen/MiddleContainer.js";
 
 describe("Container component", () => {
 

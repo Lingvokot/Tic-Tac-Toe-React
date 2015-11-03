@@ -1,6 +1,6 @@
-import setCurrentScreenAction from "../../src/actions/ScreenActions.js";
+import setCurrentScreenAction from "src/actions/ScreenActions.js";
 import { SET_CURRENT_SCREEN, MENU_SCREEN,
-         GAME_SCREEN} from "../../src/actions/ScreenActions.js";
+         GAME_SCREEN} from "src/actions/ScreenActions.js";
 
 describe("Screen Actions", () => {
 

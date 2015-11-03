@@ -1,4 +1,4 @@
-import changeGridAction, {GRID_CHANGED} from "../../src/actions/GameActions.js";
+import changeGridAction, {GRID_CHANGED} from "src/actions/GameActions.js";
 
 describe("Game Actions", () => {
 

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactTestUtils from "react-addons-test-utils";
 
-import MenuScreen from "../../../src/components/MenuScreen/MenuScreen.js";
+import MenuScreen from "src/components/MenuScreen/MenuScreen.js";
 
 describe("MenuScreen", () => {
 

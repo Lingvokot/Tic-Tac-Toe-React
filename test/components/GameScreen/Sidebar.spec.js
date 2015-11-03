@@ -2,7 +2,7 @@
 import React from "react";
 import ReactTestUtils from "react-addons-test-utils";
 
-import Sidebar from "../../../src/components/GameScreen/Sidebar.js";
+import Sidebar from "src/components/GameScreen/Sidebar.js";
 
 describe("Sidebar component", () => {
 

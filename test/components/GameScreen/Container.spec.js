@@ -2,7 +2,7 @@
 import React from "react";
 import ReactTestUtils from "react-addons-test-utils";
 
-import Container from "../../../src/components/GameScreen/Container.js";
+import Container from "src/components/GameScreen/Container.js";
 
 describe("Container component for Game Screen", () => {
 

@@ -2,7 +2,7 @@
 import React from "react";
 import ReactTestUtils from "react-addons-test-utils";
 
-import GameScreen from "../../../src/components/GameScreen/GameScreen.js";
+import GameScreen from "src/components/GameScreen/GameScreen.js";
 
 describe("GameScreen", () => {
 

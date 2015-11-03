@@ -2,7 +2,7 @@
 import React from "react";
 import ReactTestUtils from "react-addons-test-utils";
 
-import GameGrid from "../../../src/components/GameScreen/GameGrid.js";
+import GameGrid from "src/components/GameScreen/GameGrid.js";
 
 describe("GameGrid component", () => {
 
