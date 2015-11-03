@@ -1,10 +1,14 @@
 // component test
 import React from "react";
+import ReactDOM from "react-dom";
 import ReactTestUtils from "react-addons-test-utils";
+import jsdom from "mocha-jsdom";
 
 import Button from "src/components/Shared/Button.js";
 
 describe("Button component", () => {
+
+  jsdom();
 
   it("should exist", () => {
     Button.should.exist;
@@ -44,6 +48,16 @@ describe("Button component", () => {
         .isCompositeComponentWithType(output, Button)
           .should.be.not.ok;
     });
+
+    it("should call click handler passed through props on click event", () => {
+      var wasCalled = false;
+      const button = ReactTestUtils.renderIntoDocument(
+        <Button clickHandler={() => wasCalled = true}/>
+      );
+      var node = ReactDOM.findDOMNode(button);
+      ReactTestUtils.Simulate.click(node);
+      wasCalled.should.equal(true);
+    })
 
   });
 
