@@ -44,9 +44,8 @@ describe("Button component", () => {
       renderer.render(<Button useWrapper />);
       const output = renderer.getRenderOutput();
 
-      ReactTestUtils
-        .isCompositeComponentWithType(output, Button)
-          .should.be.not.ok;
+      output.type.displayName.should.be.equal("ButtonWrapper");
+      output.props.children.type.should.be.equal("button");
     });
 
     it("should call click handler passed through props on click event", () => {
@@ -55,6 +54,20 @@ describe("Button component", () => {
         <Button clickHandler={() => wasCalled = true}/>
       );
       var node = ReactDOM.findDOMNode(button);
+      ReactTestUtils.Simulate.click(node);
+      wasCalled.should.equal(true);
+    })
+
+    it("should call click handler, with wrapper too", () => {
+      var wasCalled = false;
+      const button = ReactTestUtils.renderIntoDocument(
+        <Button clickHandler={() => wasCalled = true}
+            useWrapper
+        />
+      );
+      var node = ReactTestUtils
+          .findRenderedDOMComponentWithTag(button, "button");
+
       ReactTestUtils.Simulate.click(node);
       wasCalled.should.equal(true);
     })
