@@ -15,7 +15,8 @@ describe("store", () => {
   });
 
   it("should use app reducer", () => {
-    var storeState = store.dispath({type: "bla-bla-bla"});
+    store.dispatch({type: "bla-bla-bla"});
+    var storeState = store.getState();
     var defaultState = app(undefined, {type: "bla-bla-bla"});
     storeState.should.be.eql(defaultState);
   })
