@@ -51,7 +51,7 @@ describe("Button component", () => {
     it("should call click handler passed through props on click event", () => {
       var wasCalled = false;
       const button = ReactTestUtils.renderIntoDocument(
-        <Button clickHandler={() => wasCalled = true}/>
+        <Button onClick={() => wasCalled = true}/>
       );
       var node = ReactDOM.findDOMNode(button);
       ReactTestUtils.Simulate.click(node);
@@ -61,7 +61,7 @@ describe("Button component", () => {
     it("should call click handler, with wrapper too", () => {
       var wasCalled = false;
       const button = ReactTestUtils.renderIntoDocument(
-        <Button clickHandler={() => wasCalled = true}
+        <Button onClick={() => wasCalled = true}
             useWrapper
         />
       );
