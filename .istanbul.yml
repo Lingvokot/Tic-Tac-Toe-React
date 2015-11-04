@@ -5,7 +5,8 @@ instrumentation:
         - .jsx
         - .js
     default-excludes: true
-    excludes: []
+    excludes:
+        - test_bootstrap.js
     embed-source: false
     variable: __coverage__
     compact: true
