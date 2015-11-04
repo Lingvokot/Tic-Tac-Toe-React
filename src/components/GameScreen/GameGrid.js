@@ -6,7 +6,7 @@ const imageO = "images/o.png";
 const GameGrid = React.createClass({
   PropTypes: {
     cellClickHandler: React.PropTypes.func.isRequired,
-    cellValues: React.PropTypes.array
+    cellValues: React.PropTypes.array.isRequired
   },
 
   gameGridStyle: {
@@ -19,26 +19,27 @@ const GameGrid = React.createClass({
     backgroundColor: "#123456"
   },
 
-  renderGrid(girdSize) {
-
-    var grid = [];
-    for(let i = 0; i < girdSize; i++) {
-      for(let j = 0; j < girdSize; j++) {
-        grid.push(
-          <GridCell cellClickHandler={this.props.cellClickHandler}
-            cellValue={this.props.cellValues[i][j]}
-            key={i+""+j}
-            x={i} y={j}
-          />);
+  renderGrid(grid, clickHandler) {
+    var gridToRender = [];
+    for(let i = 0; i < grid.length; i++) {
+      for(let j = 0; j < grid[i].length; j++) {
+        gridToRender.push(
+          <GridCell clickHandler={clickHandler}
+              cellValue={grid[i][j]}
+              key={i+""+j}
+              x={i}
+              y={j}
+          />
+        );
       }
     }
-    return grid;
+    return gridToRender;
   },
 
   render () {
     return (
       <div style={this.gameGridStyle}>
-        {this.renderGrid(this.props.cellValues.length)}
+        {this.renderGrid(this.props.cellValues, this.props.cellClickHandler)}
       </div>
     );
   }
@@ -46,7 +47,8 @@ const GameGrid = React.createClass({
 
 const GridCell = React.createClass({
   PropTypes: {
-    cellClickHandler: React.PropTypes.func.isRequired,
+    clickHandler: React.PropTypes.func.isRequired,
+    cellValue: React.PropTypes.string,
     x: React.PropTypes.number,
     y: React.PropTypes.number
   },
@@ -60,8 +62,8 @@ const GridCell = React.createClass({
     backgroundColor: "#6f71a0"
   },
 
-  renderImage: function() {
-    switch(this.props.cellValue) {
+  renderImage: function(value) {
+    switch(value) {
       case "x":
         return <Image image={imageX} />;
       case "o":
@@ -71,15 +73,16 @@ const GridCell = React.createClass({
     }
   },
 
-  cellClicked() {
-     this.props.cellClickHandler(this.props.x, this.props.y);
+  onClick() {
+     this.props.clickHandler(this.props.x, this.props.y);
   },
 
   render () {
     return (
-      <div onClick={this.cellClicked}
-        style={this.gridCellStyle}>
-        {this.renderImage()}
+      <div onClick={this.onClick}
+          style={this.gridCellStyle}
+      >
+        {this.renderImage(this.props.cellValue)}
       </div>
     );
   }
