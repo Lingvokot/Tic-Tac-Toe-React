@@ -9,12 +9,13 @@ import GameGrid from "./GameGrid.js";
 import GameStats from "./GameStats.js";
 import Button from "./../Shared/Button.js";
 
-const MENU_BUTTON = "Menu";
+import setCurrentScreenAction from "../../actions/ScreenActions.js";
+import { MENU_SCREEN } from "../../actions/ScreenActions.js";
+import changeGridAction from "../../actions/GameActions.js";
 
 const GameScreen = React.createClass({
   PropTypes: {
-    buttonClickHandler: React.PropTypes.func.isRequired,
-    cellClickHandler: React.PropTypes.func.isRequired,
+    dispatch: React.PropTypes.func,
     cellValues: React.PropTypes.array,
     victoryStatistics: React.PropTypes.object
   },
@@ -35,13 +36,18 @@ const GameScreen = React.createClass({
         />
         <Sidebar />
         <MiddleContainer>
-          <GameGrid cellClickHandler={this.props.cellClickHandler}
-             cellValues={this.props.cellValues} />
+          <GameGrid cellClickHandler={(x, y) => this.props.dispatch(
+                  changeGridAction(x, y)
+                )}
+              cellValues={this.props.cellValues}
+          />
         </MiddleContainer>
         <Sidebar>
           <GameStats victoryStatistics={this.props.victoryStatistics} />
-          <Button buttonClickHandler={this.props.buttonClickHandler}
-              text={MENU_BUTTON}
+          <Button onClick={() => this.props.dispatch(
+                  setCurrentScreenAction(MENU_SCREEN)
+                )}
+              text="Menu"
           />
         </Sidebar>
       </Container>
