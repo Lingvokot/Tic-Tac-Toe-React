@@ -3,8 +3,12 @@ import game from "src/reducers/Game.js";
 import screen from "src/reducers/Screen.js";
 import setCurrentScreenAction from "src/actions/ScreenActions.js";
 import { MENU_SCREEN, GAME_SCREEN } from "src/actions/ScreenActions.js";
-import changeGridAction from "src/actions/GameActions.js";
 import { initialGameState } from "src/reducers/Game.js";
+import { playerMoveAction } from "src/actions/GameActions.js";
+import { computerMoveAction } from "src/actions/GameActions.js";
+import { resetGameAction } from "src/actions/GameActions.js";
+import { setGameModeAction } from "src/actions/GameActions.js";
+import { VS_HUMAN, EASY, MEDIUM, HARD } from "src/reducers/Game.js";
 
 describe("app reducer", () => {
 
@@ -22,8 +26,14 @@ describe("app reducer", () => {
         previousState,
         setMenuScreenAction = setCurrentScreenAction(MENU_SCREEN),
         setGameScreenAction = setCurrentScreenAction(GAME_SCREEN),
-        girdChangedAt00 = changeGridAction(0,0),
-        girdChangedAt11 = changeGridAction(0,0);
+        playerMovedAt00 = playerMoveAction(0,0),
+        playerMovedAt11 = playerMoveAction(0,0),
+        computerMove = computerMoveAction(),
+        setEasyGameMode = setGameModeAction(EASY),
+        setMediumGameMode = setGameModeAction(MEDIUM),
+        setHardGameMode = setGameModeAction(HARD),
+        setVsHumanGameMode = setGameModeAction(VS_HUMAN),
+        resetGame = resetGameAction();
 
     it("should return initial state if state is empty", () => {
       state = app(undefined, {type: "this is test"});
@@ -72,16 +82,47 @@ describe("app reducer", () => {
       state.game = initialGameState();
       previousState = initialGameState();
 
-      state = app(state, girdChangedAt00);
-      previousState.game = game(previousState.game, girdChangedAt00);
+      state = app(state, playerMovedAt00);
+      previousState.game = game(previousState.game, playerMovedAt00);
       state.game.should.be.eql(previousState.game);
 
-      state = app(state, girdChangedAt00);
-      previousState.game = game(previousState.game, girdChangedAt00);
+      state = app(state, playerMovedAt00);
+      previousState.game = game(previousState.game, playerMovedAt00);
       state.game.should.be.eql(previousState.game);
 
-      state = app(state, girdChangedAt11);
-      previousState.game = game(previousState.game, girdChangedAt00);
+      state = app(state, playerMovedAt11);
+      previousState.game = game(previousState.game, playerMovedAt00);
+      state.game.should.be.eql(previousState.game);
+    });
+
+    it("should handle game actions with game reducer", () => {
+      Math.random = () => 0;
+      state = app(state, computerMove);
+      previousState.game = game(previousState.game, computerMove);
+      state.game.should.be.eql(previousState.game);
+    });
+
+    it("should handle game actions with game reducer", () => {
+      state = app(state, setEasyGameMode);
+      previousState.game = game(previousState.game, setEasyGameMode);
+      state.game.should.be.eql(previousState.game);
+
+      state = app(state, setMediumGameMode);
+      previousState.game = game(previousState.game, setMediumGameMode);
+      state.game.should.be.eql(previousState.game);
+
+      state = app(state, setHardGameMode);
+      previousState.game = game(previousState.game, setHardGameMode);
+      state.game.should.be.eql(previousState.game);
+
+      state = app(state, setVsHumanGameMode);
+      previousState.game = game(previousState.game, setVsHumanGameMode);
+      state.game.should.be.eql(previousState.game);
+    });
+
+    it("should handle game actions with game reducer", () => {
+      state = app(state, resetGame);
+      previousState.game = game(previousState.game, resetGame);
       state.game.should.be.eql(previousState.game);
     });
 
