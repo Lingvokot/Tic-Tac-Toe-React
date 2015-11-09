@@ -1,6 +1,7 @@
 import { playerMoveAction, PLAYER_MOVE } from "src/actions/GameActions.js";
 import { computerMoveAction, COMPUTER_MOVE } from "src/actions/GameActions.js";
 import { resetGameAction, RESET_GAME } from "src/actions/GameActions.js";
+import { setGameModeAction, SET_GAME_MODE } from "src/actions/GameActions.js";
 
 describe("Game Actions", () => {
 
@@ -8,12 +9,14 @@ describe("Game Actions", () => {
     playerMoveAction.should.exist;
     computerMoveAction.should.exist;
     resetGameAction.should.exist;
+    setGameModeAction.should.exist;
   });
 
   it("should be a function", () => {
     playerMoveAction.should.be.function;
     computerMoveAction.should.be.function;
     resetGameAction.should.be.function;
+    setGameModeAction.should.be.function;
   });
 
   describe("playerMoveAction", () => {
@@ -83,6 +86,37 @@ describe("Game Actions", () => {
       };
 
       action.should.be.eql(computerMove);
+    });
+
+  });
+
+  describe("setGameModeAction", () => {
+
+    it("should create action of type SET_GAME_MODE", () => {
+      const action = setGameModeAction("TEST");
+      action.type.should.be.equal(SET_GAME_MODE);
+    });
+
+    it("should first argument as game mode", () => {
+      const action = setGameModeAction("TEST");
+
+      const testAction = {
+        mode: "TEST",
+        type: SET_GAME_MODE
+      };
+
+      action.should.be.eql(testAction);
+    });
+
+    it("should first argument as game mode", () => {
+      const action = setGameModeAction("TEST_NUMBER_TWO");
+
+      const testAction = {
+        mode: "TEST_NUMBER_TWO",
+        type: SET_GAME_MODE
+      };
+
+      action.should.be.eql(testAction);
     });
 
   });
