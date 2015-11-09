@@ -38,7 +38,7 @@
     "codeclimate-test-reporter": "^0.1.1",
     "eslint": "^1.7.3",
     "eslint-plugin-react": "^3.5.1",
-    "isparta": "^3.1.0",
+    "isparta": "^3.5.3",
     "jsdom": "^6.5.1",
     "mocha": "^2.3.3",
     "mocha-jsdom": "^1.0.0",
