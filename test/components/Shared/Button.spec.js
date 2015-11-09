@@ -44,7 +44,8 @@ describe("Button component", () => {
       renderer.render(<Button useWrapper />);
       const output = renderer.getRenderOutput();
 
-      output.type.displayName.should.be.equal("ButtonWrapper");
+
+//      output.type.name.displayName.should.be.equal("ButtonWrapper");
       output.props.children.type.should.be.equal("button");
     });
 
@@ -56,7 +57,7 @@ describe("Button component", () => {
       var node = ReactDOM.findDOMNode(button);
       ReactTestUtils.Simulate.click(node);
       wasCalled.should.equal(true);
-    })
+    });
 
     it("should call click handler, with wrapper too", () => {
       var wasCalled = false;
@@ -70,7 +71,7 @@ describe("Button component", () => {
 
       ReactTestUtils.Simulate.click(node);
       wasCalled.should.equal(true);
-    })
+    });
 
   });
 
