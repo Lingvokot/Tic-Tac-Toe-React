@@ -1,41 +1,90 @@
-import changeGridAction, {GRID_CHANGED} from "src/actions/GameActions.js";
+import { playerMoveAction, PLAYER_MOVE } from "src/actions/GameActions.js";
+import { computerMoveAction, COMPUTER_MOVE } from "src/actions/GameActions.js";
+import { resetGameAction, RESET_GAME } from "src/actions/GameActions.js";
 
 describe("Game Actions", () => {
 
   it("should exist", () => {
-    changeGridAction.should.exist;
+    playerMoveAction.should.exist;
+    computerMoveAction.should.exist;
+    resetGameAction.should.exist;
   });
 
   it("should be a function", () => {
-    changeGridAction.should.be.function;
+    playerMoveAction.should.be.function;
+    computerMoveAction.should.be.function;
+    resetGameAction.should.be.function;
   });
 
-  it("should create action of type GRID_CHANGED", () => {
-    const action = changeGridAction();
-    action.type.should.be.equal(GRID_CHANGED);
+  describe("playerMoveAction", () => {
+
+    it("should create action of type PLAYER_MOVE", () => {
+      const action = playerMoveAction(0,0);
+      action.type.should.be.equal(PLAYER_MOVE);
+    });
+
+    it("should have props x, y equal to function arguments", () => {
+      var action = playerMoveAction(0,0);
+
+      const playerMoveAt00 = {
+        x: 0,
+        y: 0,
+        type: PLAYER_MOVE
+      };
+
+      action.should.be.eql(playerMoveAt00);
+    });
+
+    it("should have props x, y equal to function arguments", () => {
+      var action = playerMoveAction(2,1);
+
+      const playerMoveAt21 = {
+        x: 2,
+        y: 1,
+        type: PLAYER_MOVE
+      };
+
+      action.should.be.eql(playerMoveAt21);
+    });
+
   });
 
-  it("should have props x, y equal to function arguments", () => {
-    var action = changeGridAction(0,0);
+  describe("computerMoveAction", () => {
 
-    const gridChangedAt00 = {
-      x: 0,
-      y: 0,
-      type: GRID_CHANGED
-    };
+    it("should create action of type COMPUTER_MOVE", () => {
+      const action = computerMoveAction();
+      action.type.should.be.equal(COMPUTER_MOVE);
+    });
 
-    action.should.be.eql(gridChangedAt00);
+    it("should have nothing else but action type", () => {
+      var action = computerMoveAction( );
 
-    action = changeGridAction(2,1);
+      const computerMove = {
+        type: COMPUTER_MOVE
+      };
 
-    const gridChangedAt21 = {
-      x: 2,
-      y: 1,
-      type: GRID_CHANGED
-    };
+      action.should.be.eql(computerMove);
+    });
 
-    action.should.be.eql(gridChangedAt21);
   });
 
+  describe("resetGameAction", () => {
+
+    it("should create action of type RESET_GAME", () => {
+      const action = resetGameAction();
+      action.type.should.be.equal(RESET_GAME);
+    });
+
+    it("should have props x, y equal to function arguments", () => {
+      var action = resetGameAction();
+
+      const computerMove = {
+        type: RESET_GAME
+      };
+
+      action.should.be.eql(computerMove);
+    });
+
+  });
 
 });
