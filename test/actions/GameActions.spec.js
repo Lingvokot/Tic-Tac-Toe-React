@@ -78,7 +78,7 @@ describe("Game Actions", () => {
       action.type.should.be.equal(RESET_GAME);
     });
 
-    it("should have props x, y equal to function arguments", () => {
+    it("should have nothing else but action type", () => {
       var action = resetGameAction();
 
       const computerMove = {
@@ -97,7 +97,7 @@ describe("Game Actions", () => {
       action.type.should.be.equal(SET_GAME_MODE);
     });
 
-    it("should first argument as game mode", () => {
+    it("should use first argument as game mode", () => {
       const action = setGameModeAction("TEST");
 
       const testAction = {
@@ -108,7 +108,7 @@ describe("Game Actions", () => {
       action.should.be.eql(testAction);
     });
 
-    it("should first argument as game mode", () => {
+    it("should use first argument as game mode", () => {
       const action = setGameModeAction("TEST_NUMBER_TWO");
 
       const testAction = {
