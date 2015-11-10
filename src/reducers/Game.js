@@ -69,17 +69,17 @@ const applyMove = function (state, x, y) {
   newState.gameGrid[x][y] = newState.currentTurn;
   newState.currentTurn = newState.currentTurn === "x" ? "o": "x";
 
-  var res = checkBoard(newState.gameGrid);
-  if(res) {
+  var winner = checkBoard(newState.gameGrid);
+  if(winner) {
     newState.gameOver = true;
     newState.victoryStatistics = {
       x: state.victoryStatistics.x,
       o: state.victoryStatistics.o
     };
-    if(res === "tie") {
+    if(winner === "tie") {
       return newState;
     }
-    newState.victoryStatistics[res]++;
+    newState.victoryStatistics[winner]++;
   }
   return newState;
 };
@@ -92,24 +92,24 @@ const startNewGame = function (victoryStatistics) {
 
 // check whether someone won or not
 const checkBoard = function (board) {
-  var result;
+  var winner;
 
   //check rows
-  result = checkRows(board);
-  if(result) {
-    return result;
+  winner = checkRows(board);
+  if(winner) {
+    return winner;
   }
 
   // check columns
-  result = checkColumns(board);
-  if(result) {
-    return result;
+  winner = checkColumns(board);
+  if(winner) {
+    return winner;
   }
 
   // check diagonals
-  result = checkDiagonals(board);
-  if(result) {
-    return result;
+  winner = checkDiagonals(board);
+  if(winner) {
+    return winner;
   }
 
   // check if there's still empty tiles
