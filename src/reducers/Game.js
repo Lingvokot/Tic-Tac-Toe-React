@@ -41,15 +41,16 @@ const game = function (state = initialGameState(), action) {
       }
       return applyMove(state, action.x, action.y);
     case COMPUTER_MOVE:
+      let move;
       if(Math.random() < difficultyModificator[state.gameMode]) {
         // make random move
-        return applyMove(
-          state,
-          getRandomElement(getAvaliableMoves(state.gameGrid))
-        );
+        move = getRandomElement(getAvaliableMoves(state.gameGrid))
       }
-      //make best move possible
-      return applyMove(state, ...minimax(state, 0));
+      else {
+        //make best move possible
+        move = minimax(state, 0);
+      }
+      return applyMove(state, move.x, move.y);
     case SET_GAME_MODE:
       return Object.assign({}, state, {
         gameMode: action.mode
@@ -62,10 +63,10 @@ const game = function (state = initialGameState(), action) {
 };
 
 const applyMove = function (state, x, y) {
-  var newState = Object.assign({}, state, {
-    gameGrid: JSON.parse(JSON.stringify(state.gameGrid))
-  });
 
+  var newState = Object.assign({}, state, {
+    gameGrid: state.gameGrid.slice()
+  });
   newState.gameGrid[x][y] = newState.currentTurn;
   newState.currentTurn = newState.currentTurn === "x" ? "o": "x";
 
