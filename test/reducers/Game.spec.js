@@ -242,11 +242,10 @@ describe("game reducer", () => {
 
     var state;
 
-    Math.random = () => 0.99;
-
     it("should be able to make turn", () => {
+      Math.random = () => 0.99;
       state = initialGameState();
-      state.AI.isOn = true;
+      state.gameMode = EASY;
 
       state = game(state, playerMoveAction(0,0));
       state = game(state, computerMoveAction());
@@ -259,22 +258,26 @@ describe("game reducer", () => {
 
     it("should be able to make turn", () => {
       state = initialGameState();
-      state.AI.isOn = true;
+      state.gameMode = EASY;
       state.AI.playingX = true;
+      state.gameGrid = [["x","",""],
+                        ["","o","o"],
+                        ["","","x"]];
 
       state = game(state, computerMoveAction());
 
-      state.currentTurn.should.be.equal("x");
+      state.currentTurn.should.be.equal("o");
       state.gameGrid.should.be.eql([["x","",""],
-                                    ["","",""],
-                                    ["","",""]]);
+                                    ["x","o","o"],
+                                    ["","","x"]]);
     });
 
     it("should choose best turn possible", () => {
       state = initialGameState();
-      state.AI.isOn = true;
+      state.gameMode = EASY;
+      state.gameGrid[0][0] = "x";
+      state.currentTurn = "o";
 
-      state = game(state, playerMoveAction(0,0));
       state = game(state, computerMoveAction());
 
       state.gameGrid.should.be.eql([["x","",""],
@@ -284,7 +287,7 @@ describe("game reducer", () => {
 
     it("should choose best turn possible", () => {
       state = initialGameState();
-      state.AI.isOn = true;
+      state.gameMode = EASY;
       state.AI.playingX = true;
       state.gameGrid = [["x","",""],
                         ["","o",""],
@@ -300,10 +303,11 @@ describe("game reducer", () => {
 
     it("should choose best turn possible", () => {
       state = initialGameState();
-      state.AI.isOn = true;
+      state.gameMode = EASY;
       state.gameGrid = [["x","",""],
                         ["","o",""],
                         ["x","",""]];
+      state.currentTurn = "o";
 
       state = game(state, computerMoveAction());
 
@@ -312,12 +316,12 @@ describe("game reducer", () => {
                                     ["x","",""]]);
     });
 
-    Math.random = () => 0;
-
     it("should make random turns sometimes", () => {
+      Math.random = () => 0;
       state = initialGameState();
-      state.AI.isOn = true;
-      state =
+      state.gameMode = EASY;
+      state.gameGrid[0][0] = "x";
+      state.currentTurn = "o";
 
       state = game(state, computerMoveAction());
 
@@ -328,10 +332,11 @@ describe("game reducer", () => {
 
     it("should make random turns sometimes", () => {
       state = initialGameState();
-      state.AI.isOn = true;
-      state = [["x","o","x"],
-               ["o","x",""],
-               ["","",""]];
+      state.gameMode = EASY;
+      state.gameGrid = [["x","o","x"],
+                        ["o","x",""],
+                        ["","",""]];
+      state.currentTurn = "o";
 
       state = game(state, computerMoveAction());
 
