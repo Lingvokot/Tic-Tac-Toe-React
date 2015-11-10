@@ -41,6 +41,9 @@ const game = function (state = initialGameState(), action) {
       }
       return applyMove(state, action.x, action.y);
     case COMPUTER_MOVE:
+      if(state.gameMode === VS_HUMAN || state.gameOver) {
+        return state;
+      }
       let move;
       if(Math.random() < difficultyModificator[state.gameMode]) {
         // make random move
@@ -52,15 +55,21 @@ const game = function (state = initialGameState(), action) {
       }
       return applyMove(state, move.x, move.y);
     case SET_GAME_MODE:
-      return Object.assign({}, state, {
-        gameMode: action.mode
-      });
+      return setGameMode(state, action.mode);
     case RESET_GAME:
       return initialGameState();
     default:
       return state;
   }
 };
+
+const setGameMode = function (state, mode) {
+  var newState = Object.assign({}, state, {
+    gameMode: mode
+  });
+  newState.AI.isOn = mode !== VS_HUMAN;
+  return newState;
+}
 
 const applyMove = function (state, x, y) {
 
