@@ -49,7 +49,7 @@ const game = function (state = initialGameState(), action) {
         );
       }
       //make best move possible
-      return applyMove(state, {...minimax(state, 0)});
+      return applyMove(state, ...minimax(state, 0));
     case SET_GAME_MODE:
       return Object.assign({}, state, {
         gameMode: action.mode
