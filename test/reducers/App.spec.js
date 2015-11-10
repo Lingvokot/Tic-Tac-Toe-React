@@ -96,7 +96,9 @@ describe("app reducer", () => {
     });
 
     it("should handle game actions with game reducer", () => {
-      Math.random = () => 0;
+      state.game.gameMode = EASY;
+      previousState.game.gameMode = EASY;
+      Math.random = () => 0.2;
       state = app(state, computerMove);
       previousState.game = game(previousState.game, computerMove);
       state.game.should.be.eql(previousState.game);
