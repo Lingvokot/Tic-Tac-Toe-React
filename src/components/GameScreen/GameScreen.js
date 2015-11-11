@@ -38,12 +38,11 @@ const GameScreen = React.createClass({
         />
         <Sidebar />
         <MiddleContainer>
-          <GameGrid cellClickHandler={(x, y) => {
-                  this.props.dispatch(playerMoveAction(x, y));
-                  this.props.dispatch(computerMoveAction());
-                }
+          <GameGrid cellClickHandler={(x, y) =>
+                this.props.dispatch(playerMoveAction(x, y))
               }
               cellValues={this.props.cellValues}
+              onUpdate={() => this.props.dispatch(computerMoveAction())}
           />
         </MiddleContainer>
         <Sidebar>
