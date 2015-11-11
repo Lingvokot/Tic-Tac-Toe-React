@@ -4,9 +4,14 @@ const imageX = "images/x.png";
 const imageO = "images/o.png";
 
 const GameGrid = React.createClass({
+  componentDidUpdate() {
+    this.props.onUpdate();
+  },
+
   PropTypes: {
     cellClickHandler: React.PropTypes.func.isRequired,
-    cellValues: React.PropTypes.array.isRequired
+    cellValues: React.PropTypes.array.isRequired,
+    onUpdate: React.PropTypes.func
   },
 
   gameGridStyle: {
