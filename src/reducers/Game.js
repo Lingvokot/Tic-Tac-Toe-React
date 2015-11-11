@@ -33,27 +33,9 @@ export const initialGameState = function() {
 const game = function (state = initialGameState(), action) {
   switch (action.type) {
     case PLAYER_MOVE:
-      if(state.gameOver) {
-        return startNewGame(state.victoryStatistics);
-      }
-      if(state.gameGrid[action.x][action.y] !== "") {
-        return state;
-      }
-      return applyMove(state, action.x, action.y);
+      return handlePlayerMove(state, action.x, action.y);
     case COMPUTER_MOVE:
-      if(state.gameMode === VS_HUMAN || state.gameOver) {
-        return state;
-      }
-      let move;
-      if(Math.random() < difficultyModificator[state.gameMode]) {
-        // make random move
-        move = getRandomElement(getAvaliableMoves(state.gameGrid));
-      }
-      else {
-        //make best move possible
-        move = minimax(state, 0);
-      }
-      return applyMove(state, move.x, move.y);
+      return handleComputerMove(state);
     case SET_GAME_MODE:
       return setGameMode(state, action.mode);
     case RESET_GAME:
@@ -62,6 +44,33 @@ const game = function (state = initialGameState(), action) {
       return state;
   }
 };
+
+const handlePlayerMove = function (state, x, y) {
+  if(state.gameOver) {
+    return startNewGame(state);
+  }
+  if(state.gameGrid[x][y] !== "") {
+    return state;
+  }
+  return applyMove(state, x, y);
+}
+
+const handleComputerMove = function (state) {
+  if(state.gameMode === VS_HUMAN || state.gameOver ||
+     (state.currentTurn === "o") === state.AI.playingX) {
+    return state;
+  }
+  let move;
+  if(Math.random() < difficultyModificator[state.gameMode]) {
+    // make random move
+    move = getRandomElement(getAvaliableMoves(state.gameGrid));
+  }
+  else {
+    //make best move possible
+    move = minimax(state, 0);
+  }
+  return applyMove(state, move.x, move.y);
+}
 
 const setGameMode = function (state, mode) {
   var newState = Object.assign({}, state, {
@@ -94,9 +103,13 @@ const applyMove = function (state, x, y) {
   return newState;
 };
 
-const startNewGame = function (victoryStatistics) {
+const startNewGame = function (state) {
   return Object.assign({}, initialGameState(), {
-    victoryStatistics: victoryStatistics
+    gameMode: state.gameMode,
+    victoryStatistics: state.victoryStatistics,
+    AI : {
+      playingX: !state.AI.playingX
+    }
   });
 }
 
