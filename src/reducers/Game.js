@@ -49,7 +49,9 @@ const handlePlayerMove = function (state, x, y) {
   if(state.gameOver) {
     return startNewGame(state);
   }
-  if(state.gameGrid[x][y] !== "") {
+  if(state.gameGrid[x][y] !== "" ||
+     (((state.currentTurn === "x") === state.AI.playingX) &&
+     state.gameMode !== VS_HUMAN)) {
     return state;
   }
   return applyMove(state, x, y);
@@ -83,7 +85,7 @@ const setGameMode = function (state, mode) {
 const applyMove = function (state, x, y) {
 
   var newState = Object.assign({}, state, {
-    gameGrid: state.gameGrid.slice()
+    gameGrid: state.gameGrid.map(a => a.slice())
   });
   newState.gameGrid[x][y] = newState.currentTurn;
   newState.currentTurn = newState.currentTurn === "x" ? "o": "x";
