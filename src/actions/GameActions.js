@@ -4,6 +4,8 @@ export const COMPUTER_MOVE = "COMPUTER_MOVE";
 export const RESET_GAME = "RESET_GAME";
 export const SET_GAME_MODE = "SET_GAME_MODE";
 
+const MOVE_TIMEOUT = 200;
+
 // GRID_CHANGED action creator
 export const playerMoveAction = function (x, y) {
   return {
@@ -30,4 +32,12 @@ export const setGameModeAction = function (mode) {
     mode: mode,
     type: SET_GAME_MODE
   };
+};
+
+export const computerMoveActionAsync = function () {
+  return dispatch => {
+    setTimeout(() => {
+      dispatch(computerMoveAction(), MOVE_TIMEOUT);
+    });
+  }
 };
