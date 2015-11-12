@@ -12,7 +12,7 @@ import Button from "./../Shared/Button.js";
 import setCurrentScreenAction from "../../actions/ScreenActions.js";
 import { MENU_SCREEN } from "../../actions/ScreenActions.js";
 import { playerMoveAction } from "../../actions/GameActions.js";
-import { computerMoveAction } from "../../actions/GameActions.js";
+import { computerMoveActionAsync } from "../../actions/GameActions.js";
 import { resetGameAction } from "../../actions/GameActions.js";
 
 const GameScreen = React.createClass({
@@ -38,11 +38,12 @@ const GameScreen = React.createClass({
         />
         <Sidebar />
         <MiddleContainer>
-          <GameGrid cellClickHandler={(x, y) =>
-                this.props.dispatch(playerMoveAction(x, y))
+          <GameGrid cellClickHandler={(x, y) => {
+                  this.props.dispatch(playerMoveAction(x, y));
+                  this.props.dispatch(computerMoveActionAsync());
+                }
               }
               cellValues={this.props.cellValues}
-              onUpdate={() => this.props.dispatch(computerMoveAction())}
           />
         </MiddleContainer>
         <Sidebar>
