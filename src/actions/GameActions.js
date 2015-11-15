@@ -18,9 +18,13 @@ export const applyMoveAction = function ({x, y}) {
   };
 };
 
+export const computerMoveAction = function (state) {
+  return applyMoveAction(computeMove(state));
+}
+
 export const applyComputerMoveAfterTimeout = function (state, timeout) {
   return dispatch => setTimeout(
-      () => dispatch(applyMoveAction(computeMove(state))),
+      () => dispatch(computerMoveAction(state)),
       timeout
     );
 }
