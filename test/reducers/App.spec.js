@@ -4,8 +4,8 @@ import screen from "src/reducers/Screen.js";
 import setCurrentScreenAction from "src/actions/ScreenActions.js";
 import { MENU_SCREEN, GAME_SCREEN } from "src/actions/ScreenActions.js";
 import { initialGameState } from "src/reducers/Game.js";
-import { playerMoveAction } from "src/actions/GameActions.js";
-import { computerMoveAction } from "src/actions/GameActions.js";
+import { applyMoveAction } from "src/actions/GameActions.js";
+import { startNextMatchAction } from "src/actions/GameActions.js";
 import { resetGameAction } from "src/actions/GameActions.js";
 import { setGameModeAction } from "src/actions/GameActions.js";
 import { VS_HUMAN, EASY, MEDIUM, HARD } from "src/reducers/Game.js";
@@ -26,14 +26,14 @@ describe("app reducer", () => {
         previousState,
         setMenuScreenAction = setCurrentScreenAction(MENU_SCREEN),
         setGameScreenAction = setCurrentScreenAction(GAME_SCREEN),
-        playerMovedAt00 = playerMoveAction(0,0),
-        playerMovedAt11 = playerMoveAction(0,0),
-        computerMove = computerMoveAction(),
+        playerMovedAt00 = applyMoveAction({x:0,y:0}),
+        playerMovedAt11 = applyMoveAction({x:1,y:1}),
         setEasyGameMode = setGameModeAction(EASY),
         setMediumGameMode = setGameModeAction(MEDIUM),
         setHardGameMode = setGameModeAction(HARD),
         setVsHumanGameMode = setGameModeAction(VS_HUMAN),
-        resetGame = resetGameAction();
+        resetGame = resetGameAction(),
+        startNextMatch = startNextMatchAction();
 
     it("should return initial state if state is empty", () => {
       state = app(undefined, {type: "this is test"});
@@ -91,16 +91,13 @@ describe("app reducer", () => {
       state.game.should.be.eql(previousState.game);
 
       state = app(state, playerMovedAt11);
-      previousState.game = game(previousState.game, playerMovedAt00);
+      previousState.game = game(previousState.game, playerMovedAt11);
       state.game.should.be.eql(previousState.game);
     });
 
     it("should handle game actions with game reducer", () => {
-      state.game.gameMode = EASY;
-      previousState.game.gameMode = EASY;
-      Math.random = () => 0.2;
-      state = app(state, computerMove);
-      previousState.game = game(previousState.game, computerMove);
+      state = app(state, startNextMatch);
+      previousState.game = game(previousState.game, startNextMatch);
       state.game.should.be.eql(previousState.game);
     });
 
