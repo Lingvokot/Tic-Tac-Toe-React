@@ -1,10 +1,10 @@
 import game, { initialGameState } from "src/reducers/Game.js";
-import { playerMoveAction } from "src/actions/GameActions.js";
+import { applyMoveAction } from "src/actions/GameActions.js";
 import { computerMoveAction } from "src/actions/GameActions.js";
+import { startNextMatchAction } from "src/actions/GameActions.js";
 import { resetGameAction } from "src/actions/GameActions.js";
 import { setGameModeAction } from "src/actions/GameActions.js";
 import { VS_HUMAN, EASY, MEDIUM, HARD } from "src/reducers/Game.js";
-
 
 describe("game reducer", () => {
 
@@ -58,19 +58,12 @@ describe("game reducer", () => {
     it("should change grid cell if specified", () => {
       state = initialGameState();
 			previousState = state;
-      state = game(state, playerMoveAction(0,0));
+      state = game(state, applyMoveAction({x:0,y:0}));
       state.should.be.not.equal(previousState);
       state.currentTurn.should.be.equal("o");
       state.gameGrid.should.be.eql([["x","",""],
                                     ["","",""],
                                     ["","",""]]);
-    });
-
-    it("should change nothing if cell is already used", () => {
-			previousState = state;
-      state = game(state, playerMoveAction(0,0));
-      state.should.be.equal(previousState);
-      state.currentTurn.should.be.equal("o");
     });
 
     it("should be able to handle victory if 3 'x' or 'o' in one row", () => {
@@ -81,7 +74,7 @@ describe("game reducer", () => {
       state.currentTurn = "x";
 			previousState = state;
 
-      state = game(state, playerMoveAction(0,2));
+      state = game(state, applyMoveAction({x:0,y:2}));
       state.should.be.not.equal(previousState);
 
       previousState.victoryStatistics.x
@@ -96,7 +89,7 @@ describe("game reducer", () => {
       state.currentTurn = "o";
 			previousState = state;
 
-      state = game(state, playerMoveAction(1,2));
+      state = game(state, applyMoveAction({x:1,y:2}));
       state.should.be.not.equal(previousState);
 			state.gameOver.should.be.equal(true);
 
@@ -112,7 +105,7 @@ describe("game reducer", () => {
       state.currentTurn = "x";
 			previousState = state;
 
-      state = game(state, playerMoveAction(2,2));
+      state = game(state, applyMoveAction({x:2,y:2}));
       state.should.be.not.equal(previousState);
 			state.gameOver.should.be.equal(true);
 
@@ -128,7 +121,7 @@ describe("game reducer", () => {
       state.currentTurn = "o";
 			previousState = state;
 
-      state = game(state, playerMoveAction(2,1));
+      state = game(state, applyMoveAction({x:2,y:1}));
       state.should.be.not.equal(previousState);
 			state.gameOver.should.be.equal(true);
 
@@ -144,7 +137,7 @@ describe("game reducer", () => {
       state.currentTurn = "x";
 			previousState = state;
 
-      state = game(state, playerMoveAction(1,0));
+      state = game(state, applyMoveAction({x:1,y:0}));
       state.should.be.not.equal(previousState);
       state.gameOver.should.be.equal(true);
 
@@ -160,7 +153,7 @@ describe("game reducer", () => {
       state.currentTurn = "o";
 			previousState = state;
 
-      state = game(state, playerMoveAction(1,2));
+      state = game(state, applyMoveAction({x:1,y:2}));
       state.should.be.not.equal(previousState);
       state.gameOver.should.be.equal(true);
 
@@ -176,7 +169,7 @@ describe("game reducer", () => {
       state.currentTurn = "x";
 			previousState = state;
 
-      state = game(state, playerMoveAction(1,1));
+      state = game(state, applyMoveAction({x:1,y:1}));
       state.should.be.not.equal(previousState);
 			state.gameOver.should.be.equal(true);
 
@@ -192,7 +185,7 @@ describe("game reducer", () => {
       state.currentTurn = "o";
 			previousState = state;
 
-      state = game(state, playerMoveAction(1,1));
+      state = game(state, applyMoveAction({x:1,y:1}));
       state.should.be.not.equal(previousState);
 			state.gameOver.should.be.equal(true);
       previousState.victoryStatistics.o
@@ -207,7 +200,7 @@ describe("game reducer", () => {
       state.currentTurn = "x";
 			previousState = state;
 
-      state = game(state, playerMoveAction(1,2));
+      state = game(state, applyMoveAction({x:1,y:2}));
       state.should.be.not.equal(previousState);
 			state.gameOver.should.be.equal(true);
 
@@ -225,7 +218,7 @@ describe("game reducer", () => {
       state.currentTurn = "x";
 			previousState = state;
 
-      state = game(state, playerMoveAction(2,1));
+      state = game(state, applyMoveAction({x:2,y:1}));
       state.should.be.not.equal(previousState);
 			state.gameOver.should.be.equal(true);
 
@@ -236,7 +229,20 @@ describe("game reducer", () => {
         .should.be.equal(state.victoryStatistics.x);
     });
 
+    it("should be able to start next match", () => {
+      let initialState = initialGameState();
+      initialState.victoryStatistics = state.victoryStatistics;
+      initialState.gameMode = state.gameMode;
+      initialState.AI.playingX = !state.AI.playingX;
+
+      state = game(state, startNextMatchAction());
+
+      state.should.be.eql(initialState);
+    });
+
   });
+
+
 
   describe("AI", () => {
 
@@ -247,8 +253,8 @@ describe("game reducer", () => {
       state = initialGameState();
       state.gameMode = EASY;
 
-      state = game(state, playerMoveAction(0,0));
-      state = game(state, computerMoveAction());
+      state = game(state, applyMoveAction({x:0,y:0}));
+      state = game(state, computerMoveAction(state));
 
       state.currentTurn.should.be.equal("x");
       state.gameGrid.should.be.not.eql([["x","",""],
@@ -264,7 +270,7 @@ describe("game reducer", () => {
                         ["","o","o"],
                         ["","","x"]];
 
-      state = game(state, computerMoveAction());
+      state = game(state, computerMoveAction(state));
 
       state.currentTurn.should.be.equal("o");
       state.gameGrid.should.be.eql([["x","",""],
@@ -278,7 +284,7 @@ describe("game reducer", () => {
       state.gameGrid[0][0] = "x";
       state.currentTurn = "o";
 
-      state = game(state, computerMoveAction());
+      state = game(state, computerMoveAction(state));
 
       state.gameGrid.should.be.eql([["x","",""],
                                     ["","o",""],
@@ -293,7 +299,7 @@ describe("game reducer", () => {
                         ["","o",""],
                         ["x","o",""]];
 
-      state = game(state, computerMoveAction());
+      state = game(state, computerMoveAction(state));
 
       state.gameOver.should.be.equal(true);
       state.gameGrid.should.be.eql([["x","",""],
@@ -309,7 +315,7 @@ describe("game reducer", () => {
                         ["x","",""]];
       state.currentTurn = "o";
 
-      state = game(state, computerMoveAction());
+      state = game(state, computerMoveAction(state));
 
       state.gameGrid.should.be.eql([["x","",""],
                                     ["o","o",""],
@@ -323,7 +329,7 @@ describe("game reducer", () => {
       state.gameGrid[0][0] = "x";
       state.currentTurn = "o";
 
-      state = game(state, computerMoveAction());
+      state = game(state, computerMoveAction(state));
 
       state.gameGrid.should.be.eql([["x","o",""],
                                     ["","",""],
@@ -338,7 +344,7 @@ describe("game reducer", () => {
                         ["","",""]];
       state.currentTurn = "o";
 
-      state = game(state, computerMoveAction());
+      state = game(state, computerMoveAction(state));
 
       state.gameGrid.should.be.eql([["x","o","x"],
                                     ["o","x","o"],
