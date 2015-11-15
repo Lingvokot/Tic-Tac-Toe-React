@@ -1,16 +1,10 @@
-import { PLAYER_MOVE, COMPUTER_MOVE,
-         RESET_GAME, SET_GAME_MODE } from "../actions/GameActions.js";
+import { APPLY_MOVE, RESET_GAME,
+  SET_GAME_MODE, START_NEXT_MATCH } from "../actions/GameActions.js";
 
 export const VS_HUMAN = "VS_HUMAN";
 export const EASY = "EASY";
 export const MEDIUM = "MEDIUM";
 export const HARD = "HARD";
-
-export const difficultyModificator = {
-  EASY: 0.8,
-  MEDIUM: 0.5,
-  HARD: 0.2
-}
 
 export const initialGameState = function() {
   return {
@@ -32,10 +26,10 @@ export const initialGameState = function() {
 
 const game = function (state = initialGameState(), action) {
   switch (action.type) {
-    case PLAYER_MOVE:
-      return handlePlayerMove(state, action.x, action.y);
-    case COMPUTER_MOVE:
-      return handleComputerMove(state);
+    case APPLY_MOVE:
+      return applyMove(state, action.x, action.y);
+    case START_NEXT_MATCH:
+      return startNextMatch(state);
     case SET_GAME_MODE:
       return setGameMode(state, action.mode);
     case RESET_GAME:
@@ -45,45 +39,13 @@ const game = function (state = initialGameState(), action) {
   }
 };
 
-const handlePlayerMove = function (state, x, y) {
-  if(state.gameOver) {
-    return startNewGame(state);
-  }
-  if(state.gameGrid[x][y] !== "" ||
-     (((state.currentTurn === "x") === state.AI.playingX) &&
-     state.gameMode !== VS_HUMAN)) {
-    return state;
-  }
-  return applyMove(state, x, y);
-}
-
-const handleComputerMove = function (state) {
-  if(state.gameMode === VS_HUMAN || state.gameOver ||
-     (state.currentTurn === "o") === state.AI.playingX) {
-    return state;
-  }
-  let move;
-  if(Math.random() < difficultyModificator[state.gameMode]) {
-    // make random move
-    move = getRandomElement(getAvaliableMoves(state.gameGrid));
-  }
-  else {
-    //make best move possible
-    move = minimax(state, 0);
-  }
-  return applyMove(state, move.x, move.y);
-}
-
 const setGameMode = function (state, mode) {
-  var newState = Object.assign({}, state, {
+  return Object.assign({}, state, {
     gameMode: mode
   });
-  newState.AI.isOn = mode !== VS_HUMAN;
-  return newState;
 }
 
 const applyMove = function (state, x, y) {
-
   var newState = Object.assign({}, state, {
     gameGrid: state.gameGrid.map(a => a.slice())
   });
@@ -105,7 +67,7 @@ const applyMove = function (state, x, y) {
   return newState;
 };
 
-const startNewGame = function (state) {
+const startNextMatch = function (state) {
   return Object.assign({}, initialGameState(), {
     gameMode: state.gameMode,
     victoryStatistics: state.victoryStatistics,
@@ -116,7 +78,7 @@ const startNewGame = function (state) {
 }
 
 // check whether someone won or not
-const checkBoard = function (board) {
+export const checkBoard = function (board) {
   var winner;
 
   //check rows
@@ -170,65 +132,5 @@ const checkDiagonals = function (b) {
 const isBoardFull = function (b) {
   return !b.some(row => row.some(elem => elem === ""));
 }
-
-const MAX_SCORE = 10;
-
-const score = function (winner, depth) {
-  if(winner === "tie") {
-    return 0;
-  }
-  if(depth%2 === 1) {
-    return MAX_SCORE - depth;
-  }
-  else {
-    return depth - MAX_SCORE;
-  }
-};
-
-const minimax = function (game, depth) {
-  var scores = [],
-      moves = [];
-  if(checkBoard(game.gameGrid) !== "") {
-    return score (game, depth);
-  }
-
-  moves = getAvaliableMoves(game.gameGrid);
-  scores = moves.map((move) => minimax(simulateMove(game, move), depth+1));
-
-  if(depth === 0) {
-    return moves[scores.indexOf(Math.max.apply(null, scores))];
-  }
-  if(depth%2 === 0) {
-    return Math.max.apply(null, scores);
-  }
-  return Math.min.apply(null, scores);
-};
-
-const getAvaliableMoves = function(gameGrid) {
-  var moves = [];
-  for(let i = 0; i < gameGrid.length; i++) {
-    for(let j = 0; j < gameGrid[i].length; j++) {
-       if(gameGrid[i][j] === "") {
-         moves.push({x: i, y: j});
-       }
-     }
-  }
-  return moves;
-};
-
-const getRandomElement = function (array) {
-  return array[Math.floor(Math.random()*array.length)];
-};
-
-const simulateMove = function(game, {x, y}) {
-  var newGameState;
-  if(game.gameGrid[x][y] !== "") {
-    throw {type: "WTF?"};
-  }
-  newGameState = JSON.parse(JSON.stringify(game));
-  newGameState.gameGrid[x][y] = newGameState.currentTurn;
-  newGameState.currentTurn = newGameState.currentTurn === "x" ? "o" : "x";
-  return newGameState;
-};
 
 export default game;
