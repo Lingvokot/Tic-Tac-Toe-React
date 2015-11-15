@@ -6,10 +6,6 @@ const createStoreWithMiddleware = applyMiddleware(
   thunkMiddleware
 )(createStore);
 
-export default function configureStore(initialState) {
-  return createStoreWithMiddleware(app, initialState)
-}
-
- var store = configureStore(app);
+ var store = createStoreWithMiddleware(app);
 
  export default store;
