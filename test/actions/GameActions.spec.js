@@ -1,50 +1,51 @@
-import { playerMoveAction, PLAYER_MOVE } from "src/actions/GameActions.js";
-import { computerMoveAction, COMPUTER_MOVE } from "src/actions/GameActions.js";
+import { applyMoveAction, APPLY_MOVE } from "src/actions/GameActions.js";
+import { startNextMacthAction,
+         START_NEXT_MATCH } from "src/actions/GameActions.js";
 import { resetGameAction, RESET_GAME } from "src/actions/GameActions.js";
 import { setGameModeAction, SET_GAME_MODE } from "src/actions/GameActions.js";
 
 describe("Game Actions", () => {
 
   it("should exist", () => {
-    playerMoveAction.should.exist;
-    computerMoveAction.should.exist;
+    applyMoveAction.should.exist;
+    startNextMacthAction.should.exist;
     resetGameAction.should.exist;
     setGameModeAction.should.exist;
   });
 
   it("should be a function", () => {
-    playerMoveAction.should.be.function;
-    computerMoveAction.should.be.function;
+    applyMoveAction.should.be.function;
+    startNextMacthAction.should.be.function;
     resetGameAction.should.be.function;
     setGameModeAction.should.be.function;
   });
 
-  describe("playerMoveAction", () => {
+  describe("applyMoveAction", () => {
 
-    it("should create action of type PLAYER_MOVE", () => {
-      const action = playerMoveAction(0,0);
-      action.type.should.be.equal(PLAYER_MOVE);
+    it("should create action of type APPLY_MOVE", () => {
+      const action = applyMoveAction(0,0);
+      action.type.should.be.equal(APPLY_MOVE);
     });
 
     it("should have props x, y equal to function arguments", () => {
-      var action = playerMoveAction(0,0);
+      var action = applyMoveAction(0,0);
 
       const playerMoveAt00 = {
         x: 0,
         y: 0,
-        type: PLAYER_MOVE
+        type: APPLY_MOVE
       };
 
       action.should.be.eql(playerMoveAt00);
     });
 
     it("should have props x, y equal to function arguments", () => {
-      var action = playerMoveAction(2,1);
+      var action = applyMoveAction(2,1);
 
       const playerMoveAt21 = {
         x: 2,
         y: 1,
-        type: PLAYER_MOVE
+        type: APPLY_MOVE
       };
 
       action.should.be.eql(playerMoveAt21);
@@ -52,21 +53,21 @@ describe("Game Actions", () => {
 
   });
 
-  describe("computerMoveAction", () => {
+  describe("startNextMacthAction", () => {
 
-    it("should create action of type COMPUTER_MOVE", () => {
-      const action = computerMoveAction();
-      action.type.should.be.equal(COMPUTER_MOVE);
+    it("should create action of type START_NEXT_MATCH", () => {
+      const action = startNextMacthAction();
+      action.type.should.be.equal(START_NEXT_MATCH);
     });
 
     it("should have nothing else but action type", () => {
-      var action = computerMoveAction( );
+      var action = startNextMacthAction();
 
-      const computerMove = {
-        type: COMPUTER_MOVE
+      const startNextMatch = {
+        type: START_NEXT_MATCH
       };
 
-      action.should.be.eql(computerMove);
+      action.should.be.eql(startNextMatch);
     });
 
   });
