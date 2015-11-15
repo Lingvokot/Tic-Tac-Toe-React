@@ -20,14 +20,14 @@ export const applyMoveAction = function ({x, y}) {
 
 export const computerMoveAction = function (state) {
   return applyMoveAction(computeMove(state));
-}
+};
 
 export const applyComputerMoveAfterTimeout = function (state, timeout) {
   return dispatch => setTimeout(
       () => dispatch(computerMoveAction(state)),
       timeout
     );
-}
+};
 
 export const resetGameAction = function () {
   return {
@@ -42,30 +42,30 @@ export const setGameModeAction = function (mode) {
   };
 };
 
-export const startNextMacthAction = function () {
+export const startNextMatchAction = function () {
   return {
     type: START_NEXT_MATCH
   }
-}
+};
 
 const shouldHumanMove = function (state, {x, y}) {
   return state.gameGrid[x][y] === "" &&
     (state.gameMode === VS_HUMAN ||
      ((state.currentTurn === "x") !== state.AI.playingX)
     );
-}
+};
 
 const shouldComputerMove = function (state) {
   return state.gameMode !== VS_HUMAN &&
     (state.currentTurn === "x") === state.AI.playingX;
-}
+};
 
 const gameTick = function (move) {
   return (dispatch, getState) => {
     let state = getState().game;
     if(move) {
       if(state.gameOver) {
-        dispatch(startNextMacthAction());
+        dispatch(startNextMatchAction());
         return;
       }
       if(shouldHumanMove(state, move)) {
@@ -77,6 +77,6 @@ const gameTick = function (move) {
       dispatch(applyComputerMoveAfterTimeout(state, MOVE_TIMEOUT));
     }
   }
-}
+};
 
 export default gameTick;
