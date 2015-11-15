@@ -69,11 +69,10 @@ const getRandomElement = function (array) {
 };
 
 const simulateMove = function(game, {x, y}) {
-  var newGameState;
-  if(game.gameGrid[x][y] !== "") {
-    throw {type: "WTF?"};
-  }
-  newGameState = JSON.parse(JSON.stringify(game));
+  var newGameState = {
+    gameGrid: game.gameGrid.map(arr => arr.slice()),
+    currentTurn: game.currentTurn
+  };
   newGameState.gameGrid[x][y] = newGameState.currentTurn;
   newGameState.currentTurn = newGameState.currentTurn === "x" ? "o" : "x";
   return newGameState;
