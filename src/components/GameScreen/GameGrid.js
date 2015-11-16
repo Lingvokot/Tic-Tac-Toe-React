@@ -1,7 +1,7 @@
 import React from "react";
 
-const imageX = "images/x.png";
-const imageO = "images/o.png";
+export const imageX = "images/x.png";
+export const imageO = "images/o.png";
 
 const GameGrid = React.createClass({
   componentDidUpdate() {
