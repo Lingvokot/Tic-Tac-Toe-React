@@ -29,29 +29,24 @@ describe("MenuScreen", () => {
         dispatch = (action) => actions.push(action),
         gameModes = [VS_HUMAN, EASY, MEDIUM, HARD];
 
-    function testButtonNumber(i) {
-      it("Button should dispatch proper actions on click", () => {
-        const menuScreen = ReactTestUtils.renderIntoDocument(
-          <MenuScreen dispatch={dispatch} />
-        );
-        var buttons = ReactTestUtils.scryRenderedComponentsWithType(
-            menuScreen,
-            Button
-          );
-        var node = ReactTestUtils
-            .findRenderedDOMComponentWithTag(buttons[i], "button");
+    it("Buttons should dispatch proper actions on click", () => {
+      const menuScreen = ReactTestUtils.renderIntoDocument(
+        <MenuScreen dispatch={dispatch} />
+      );
+      ReactTestUtils.scryRenderedComponentsWithType(
+          menuScreen,
+          Button
+        ).forEach((button, i) => {
+          let node = ReactTestUtils
+              .findRenderedDOMComponentWithTag(button, "button");
 
-        ReactTestUtils.Simulate.click(node);
+          ReactTestUtils.Simulate.click(node);
 
-        actions[0].should.be.eql(setCurrentScreenAction(GAME_SCREEN));
-        actions[1].should.be.eql(setGameModeAction(gameModes[i]));
-        actions = [];
-      });
-    }
-
-    for (let i = 0; i < 4; i++) {
-      testButtonNumber(i);
-    }
+          actions[0].should.be.eql(setCurrentScreenAction(GAME_SCREEN));
+          actions[1].should.be.eql(setGameModeAction(gameModes[i]));
+          actions = [];
+        });
+    });
 
   });
 
