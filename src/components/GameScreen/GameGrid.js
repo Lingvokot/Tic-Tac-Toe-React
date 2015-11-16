@@ -50,7 +50,7 @@ const GameGrid = React.createClass({
   }
 });
 
-const GridCell = React.createClass({
+export const GridCell = React.createClass({
   PropTypes: {
     clickHandler: React.PropTypes.func.isRequired,
     cellValue: React.PropTypes.string,
