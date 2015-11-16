@@ -4,7 +4,8 @@ import ReactDOM from "react-dom";
 import ReactTestUtils from "react-addons-test-utils";
 import jsdom from "mocha-jsdom";
 
-import GameGrid from "src/components/GameScreen/GameGrid.js";
+import GameGrid, { GridCell } from "src/components/GameScreen/GameGrid.js";
+import { imageX, imageO } from "src/components/GameScreen/GameGrid.js";
 
 describe("GameGrid component", () => {
 
@@ -82,6 +83,40 @@ describe("GameGrid component", () => {
           node.props.cellValue.should.be.equal("o")
       );
 
+    });
+
+  });
+
+  describe("GridCell component", () => {
+
+    it("should render no image if prop cellValue is empty string", () => {
+      const gridCell = ReactTestUtils.renderIntoDocument(
+        <GridCell clickHandler={()=>1}
+              cellValue=""
+        />
+      );
+      let images = ReactTestUtils.scryRenderedDOMComponentsWithTag(gridCell, "img");
+      images.should.be.eql([]);
+    });
+
+    it("should render 'x' image if prop cellValue is 'x' string", () => {
+      const gridCell = ReactTestUtils.renderIntoDocument(
+        <GridCell clickHandler={()=>1}
+              cellValue="x"
+        />
+      );
+      let image = ReactTestUtils.findRenderedDOMComponentWithTag(gridCell, "img");
+      image.src.should.be.equal(imageX);
+    });
+
+    it("should render 'o' image if prop cellValue is 'o' string", () => {
+      const gridCell = ReactTestUtils.renderIntoDocument(
+        <GridCell clickHandler={()=>1}
+              cellValue="o"
+        />
+      );
+      let image = ReactTestUtils.findRenderedDOMComponentWithTag(gridCell, "img");
+      image.src.should.be.equal(imageO);
     });
 
   });
