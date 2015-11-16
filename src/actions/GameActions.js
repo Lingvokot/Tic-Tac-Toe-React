@@ -2,7 +2,7 @@ import { VS_HUMAN } from "../reducers/Game.js";
 import computeMove from "./AI.js";
 
 // Game action types
-export const APPLY_MOVE = "PLAYER_MOVE";
+export const APPLY_MOVE = "APPLY_MOVE";
 export const RESET_GAME = "RESET_GAME";
 export const SET_GAME_MODE = "SET_GAME_MODE";
 export const START_NEXT_MATCH = "START_NEXT_MATCH";
