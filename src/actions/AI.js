@@ -22,8 +22,9 @@ const computeMove = function (state) {
 const minimax = function (game, depth) {
   var scores = [],
       moves = [];
-  if(checkBoard(game.gameGrid) !== "") {
-    return score (game, depth);
+  let winner = checkBoard(game.gameGrid)
+  if(winner !== "") {
+    return score (winner, depth);
   }
 
   moves = getAvaliableMoves(game.gameGrid);
