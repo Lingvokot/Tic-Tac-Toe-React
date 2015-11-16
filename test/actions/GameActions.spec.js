@@ -88,7 +88,6 @@ describe("Game Actions", () => {
     it("should use specified timeout and dispatch an action APPLY_MOVE", () => {
       let myTimeout = 200,
           newSetTimeout = (func, timeout) => {
-            console.log("lol");
              expect(timeout).to.equal(myTimeout);
              func();
           };
