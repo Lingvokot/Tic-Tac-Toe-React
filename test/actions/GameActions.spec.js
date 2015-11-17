@@ -168,13 +168,12 @@ describe("Game Actions", () => {
 
   describe("gameTick", () => {
 
-    let state =  { game: initialGameState() },
-        game = state.game,
-        getState = () => state;
-
     it("should dispatch player move if everithing is ok", () => {
-      let move = {x:2,y:0},
+      let state =  { game: initialGameState() },
+          getState = () => state,
+          move = {x:2,y:0},
           applyMove20 = applyMoveAction(move);
+
       gameTick(move)(
         (action) => action.should.be.eql(applyMove20),
         getState
@@ -182,7 +181,9 @@ describe("Game Actions", () => {
     });
 
     it("should dispatch player move if everithing is ok", () => {
-      game.gameMode = EASY;
+      let state =  { game: initialGameState() },
+          getState = () => state;
+      state.game = state.game.set("gameMode", EASY);
       let move = {x:1,y:2},
           applyMove12 = applyMoveAction(move);
       gameTick(move)(
@@ -192,8 +193,10 @@ describe("Game Actions", () => {
     });
 
     it("should dispatch nothing if there's invalid move", () => {
-      game.gameGrid[1][2] = "x";
-      game.currentTurn = "o";
+      let state =  { game: initialGameState() },
+          getState = () => state;
+      state.game = state.game.setIn(["gameGrid", 1, 2], "x");
+      state.game = state.game.set("currentTurn", "o");
       let move = {x:1,y:2};
       gameTick(move)(
         () => assert(
@@ -205,8 +208,15 @@ describe("Game Actions", () => {
     });
 
     it("should dispatch nothing if now isn't user turn to move", () => {
-      game.gameMode = EASY;
-      game.AI.playingX = false;
+      let state =  { game: initialGameState() },
+          getState = () => state;
+      state.game = state.game.merge({
+        gameMode: EASY,
+        currentTurn: "o",
+        AI: {
+          playingX: false
+        }
+      });
       let move = {x:0,y:0};
       gameTick(move)(
         () => assert(
@@ -218,9 +228,15 @@ describe("Game Actions", () => {
     });
 
     it("should dispatch nothing if now isn't user turn to move", () => {
-      game.gameMode = MEDIUM;
-      game.AI.playingX = true;
-      game.currentTurn = "x";
+      let state =  { game: initialGameState() },
+          getState = () => state;
+      state.game = state.game.merge({
+        currentTurn: "x",
+        gameMode: MEDIUM,
+        AI: {
+          playingX: true
+        }
+      });
       let move = {x:0,y:0};
       gameTick(move)(
         () => assert(
@@ -232,9 +248,15 @@ describe("Game Actions", () => {
     });
 
     it("should dispatch nothing if now isn't user turn to move", () => {
-      game.gameMode = HARD;
-      game.AI.playingX = false;
-      game.currentTurn = "o";
+      let state =  { game: initialGameState() },
+          getState = () => state;
+      state.game = state.game.merge({
+        currentTurn: "o",
+        gameMode: HARD,
+        AI: {
+          playingX: false
+        }
+      });
       let move = {x:0,y:0};
       gameTick(move)(
         () => assert(
@@ -246,7 +268,9 @@ describe("Game Actions", () => {
     });
 
     it("should dispatch START_NEXT_MATCH if game over and move defined", () => {
-      game.gameOver = true;
+      let state =  { game: initialGameState() },
+          getState = () => state;
+      state.game = state.game.set("gameOver", true);
       let move = {x:1,y:2};
       gameTick(move)(
         (action) => expect(action.type).to.equal(START_NEXT_MATCH),
@@ -255,7 +279,10 @@ describe("Game Actions", () => {
     });
 
     it("should dispatch nothing if game over and move undefined", () => {
-      game.gameOver = true;
+      let state =  { game: initialGameState() },
+          getState = () => state;
+      state.game = state.game.set("gameOver", true);
+
       gameTick()(
         () => assert(
           false,
@@ -266,12 +293,18 @@ describe("Game Actions", () => {
     });
 
     it("should dispatch computer move if everithing is ok", () => {
-      game.gameOver = false;
-      game.gameGrid = [["x","x",""],
-                        ["o","o",""],
-                        ["x","",""]];
-      game.currentTurn = "o";
-      game.gameMode = HARD;
+      let state =  { game: initialGameState() },
+          getState = () => state;
+
+      state.game = state.game.merge({
+        gameOver: false,
+        gameGrid: [["x","x",""],
+                   ["o","o",""],
+                   ["x","",""]],
+        currentTurn: "o",
+        gameMode: HARD
+      });
+
       gameTick()(
         (action) => action.should.be.function,
         getState
@@ -279,12 +312,18 @@ describe("Game Actions", () => {
     });
 
     it("should dispatch computer move if everithing is ok", () => {
-      game.gameGrid = [["x","x","o"],
-                        ["o","o",""],
-                        ["x","",""]];
-      game.currentTurn = "x";
-      game.AI.playingX = true;
-      game.gameMode = EASY;
+      let state =  { game: initialGameState() },
+          getState = () => state;
+
+      state.game = state.game.merge({
+        gameOver: true,
+        gameGrid: [["x","x","o"],
+                   ["o","o",""],
+                   ["x","",""]],
+        currentTurn: "x",
+        gameMode: EASY
+      });
+
       gameTick()(
         (action) => action.should.be.function,
         getState
@@ -292,7 +331,9 @@ describe("Game Actions", () => {
     });
 
     it("should dispatch nothing if it's VS_HUMAN and no move", () => {
-      game.gameMode = VS_HUMAN;
+      let state =  { game: initialGameState() },
+          getState = () => state;
+      state.game = state.game.set("gameMode", VS_HUMAN);
       gameTick()(
         () => assert(
           false,
@@ -303,8 +344,13 @@ describe("Game Actions", () => {
     });
 
     it("should dispatch nothing if game over ", () => {
-      game.gameMode = MEDIUM;
-      game.gameOver = true;
+      let state =  { game: initialGameState() },
+          getState = () => state;
+      state.game = state.game.merge({
+        gameMode: MEDIUM,
+        gameOver: true
+      });
+
       gameTick()(
         () => assert(
           false,
