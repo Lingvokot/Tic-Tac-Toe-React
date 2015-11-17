@@ -36,8 +36,8 @@ const App = React.createClass({
 function select(state) {
   return {
     currentScreen: state.screen,
-    gameGrid: state.game.gameGrid,
-    victoryStatistics: state.game.victoryStatistics
+    gameGrid: state.game.get("gameGrid").toJS(),
+    victoryStatistics: state.game.get("victoryStatistics").toJS()
   }
 }
 
