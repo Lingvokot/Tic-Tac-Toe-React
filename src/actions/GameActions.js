@@ -62,7 +62,7 @@ const shouldComputerMove = function (state) {
 
 const gameTick = function (move) {
   return (dispatch, getState) => {
-    let state = getState().game;
+    let state = getState().game.toJS();
     if(move) {
       if(state.gameOver) {
         dispatch(startNextMatchAction());
