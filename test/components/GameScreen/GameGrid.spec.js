@@ -95,7 +95,8 @@ describe("GameGrid component", () => {
               cellValue=""
         />
       );
-      let images = ReactTestUtils.scryRenderedDOMComponentsWithTag(gridCell, "img");
+      let images = ReactTestUtils
+          .scryRenderedDOMComponentsWithTag(gridCell, "img");
       images.should.be.eql([]);
     });
 
@@ -105,7 +106,8 @@ describe("GameGrid component", () => {
               cellValue="x"
         />
       );
-      let image = ReactTestUtils.findRenderedDOMComponentWithTag(gridCell, "img");
+      let image = ReactTestUtils
+          .findRenderedDOMComponentWithTag(gridCell, "img");
       image.src.should.be.equal(imageX);
     });
 
@@ -115,7 +117,8 @@ describe("GameGrid component", () => {
               cellValue="o"
         />
       );
-      let image = ReactTestUtils.findRenderedDOMComponentWithTag(gridCell, "img");
+      let image = ReactTestUtils
+          .findRenderedDOMComponentWithTag(gridCell, "img");
       image.src.should.be.equal(imageO);
     });
 
