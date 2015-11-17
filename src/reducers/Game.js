@@ -1,5 +1,6 @@
 import { APPLY_MOVE, RESET_GAME,
   SET_GAME_MODE, START_NEXT_MATCH } from "../actions/GameActions.js";
+import Immutable from "immutable";
 
 export const VS_HUMAN = "VS_HUMAN";
 export const EASY = "EASY";
@@ -7,7 +8,7 @@ export const MEDIUM = "MEDIUM";
 export const HARD = "HARD";
 
 export const initialGameState = function() {
-  return {
+  return Immutable.fromJS({
     gameGrid: [["","",""],
                ["","",""],
                ["","",""]],
@@ -21,7 +22,7 @@ export const initialGameState = function() {
       playingX: false
     },
     gameOver: false
-  };
+  });
 };
 
 const game = function (state = initialGameState(), action) {
@@ -40,39 +41,35 @@ const game = function (state = initialGameState(), action) {
 };
 
 const setGameMode = function (state, mode) {
-  return Object.assign({}, state, {
-    gameMode: mode
-  });
+  return state.set("gameMode", mode);
 }
 
 const applyMove = function (state, x, y) {
-  var newState = Object.assign({}, state, {
-    gameGrid: state.gameGrid.map(a => a.slice())
-  });
-  newState.gameGrid[x][y] = newState.currentTurn;
-  newState.currentTurn = newState.currentTurn === "x" ? "o": "x";
-
-  var winner = checkBoard(newState.gameGrid);
+  var newState = state.setIn(["gameGrid", x, y], state.get("currentTurn"));
+  newState = newState.set(
+    "currentTurn",
+    state.get("currentTurn") === "x" ? "o": "x"
+  );
+  var winner = checkBoard(newState.get("gameGrid").toJS());
   if(winner) {
-    newState.gameOver = true;
-    newState.victoryStatistics = {
-      x: state.victoryStatistics.x,
-      o: state.victoryStatistics.o
-    };
+    newState = newState.set("gameOver", true);
     if(winner === "tie") {
       return newState;
     }
-    newState.victoryStatistics[winner]++;
+    return newState.updateIn(
+      ["victoryStatistics", winner],
+      victories => victories+1
+    );
   }
   return newState;
 };
 
 const startNextMatch = function (state) {
-  return Object.assign({}, initialGameState(), {
-    gameMode: state.gameMode,
-    victoryStatistics: state.victoryStatistics,
-    AI : {
-      playingX: !state.AI.playingX
+  return initialGameState().merge({
+    gameMode: state.get("gameMode"),
+    victoryStatistics: state.get("victoryStatistics"),
+    AI: {
+      playingX: !state.getIn(["AI","playingX"])
     }
   });
 }
