@@ -7,10 +7,13 @@ const difficultyModificator = {
 }
 
 const computeMove = function (state) {
-  let move;
-  if(Math.random() < difficultyModificator[state.gameMode]) {
+  let move,
+      shouldMakeRandomMove;
+  shouldMakeRandomMove = Math.random() < difficultyModificator[state.gameMode];
+  if(shouldMakeRandomMove) {
     // make random move
-    move = getRandomElement(getAvaliableMoves(state.gameGrid));
+    let moves = getAvaliableMoves(state.gameGrid);
+    move = getRandomElement(moves);
   }
   else {
     //make best move possible
