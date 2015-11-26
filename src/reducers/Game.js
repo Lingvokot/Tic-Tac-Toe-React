@@ -45,7 +45,10 @@ const setGameMode = function (state, mode) {
 }
 
 const applyMove = function (state, x, y) {
-  var newState = state.setIn(["gameGrid", x, y], state.get("currentTurn"));
+  var newState = state.setIn(
+    ["gameGrid", x, y],
+    state.get("currentTurn")
+  );
   newState = newState.set(
     "currentTurn",
     state.get("currentTurn") === "x" ? "o": "x"
@@ -127,7 +130,9 @@ const checkDiagonals = function (b) {
 }
 
 const isBoardFull = function (b) {
-  return !b.some(row => row.some(elem => elem === ""));
+  return !b.some(
+    row => row.some(elem => elem === "")
+  );
 }
 
 export default game;
