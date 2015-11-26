@@ -25,22 +25,37 @@ const computeMove = function (state) {
 const minimax = function (game, depth) {
   var scores = [],
       moves = [];
-  let winner = checkBoard(game.gameGrid)
+
+  let winner = checkBoard(game.gameGrid);
   if(winner !== "") {
     return score (winner, depth);
   }
 
   moves = getAvaliableMoves(game.gameGrid);
-  scores = moves.map((move) => minimax(simulateMove(game, move), depth+1));
+  moves = moves.map(move => simulateMove(game, move));
+  scores = moves.map(move => minimax(move, depth+1));
 
   if(depth === 0) {
-    return moves[scores.indexOf(Math.max.apply(null, scores))];
+    let maxElementIndex = getMaxElementIndex(scores);
+    return moves[maxElementIndex];
   }
   if(depth%2 === 0) {
-    return Math.max.apply(null, scores);
+    return getMaxElement(scores);
   }
-  return Math.min.apply(null, scores);
+  return getMinElement(scores);
 };
+
+function getMaxElementIndex(arr) {
+  return  arr.indexOf(getMaxElement(arr));
+}
+
+function getMaxElement(arr) {
+  return Math.max(...arr);
+}
+
+function getMinElement(arr) {
+  return Math.min(...arr);
+}
 
 const MAX_SCORE = 10;
 
