@@ -57,7 +57,8 @@ const shouldHumanMove = function (state, {x, y}) {
 
 const shouldComputerMove = function (state) {
   return state.gameMode !== VS_HUMAN &&
-    (state.currentTurn === "x") === state.AI.playingX;
+         !state.gameOver &&
+         (state.currentTurn === "x") === state.AI.playingX;
 };
 
 const gameTick = function (move) {
@@ -73,7 +74,7 @@ const gameTick = function (move) {
       }
       return;
     }
-    if(shouldComputerMove(state) && !state.gameOver) {
+    if(shouldComputerMove(state)) {
       dispatch(applyComputerMoveAfterTimeout(state, MOVE_TIMEOUT));
     }
   }
