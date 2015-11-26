@@ -49,16 +49,22 @@ export const startNextMatchAction = function () {
 };
 
 const shouldHumanMove = function (state, {x, y}) {
-  return state.gameGrid[x][y] === "" &&
-    (state.gameMode === VS_HUMAN ||
-     ((state.currentTurn === "x") !== state.AI.playingX)
-    );
+  let cellAvaliable = state.gameGrid[x][y] === "",
+      playingVersusHuman = state.gameMode === VS_HUMAN,
+      nextTurnIsUpToX = state.currentTurn === "x",
+      isNotComputerTurn = nextTurnIsUpToX !== state.AI.playingX,
+      isHumanTurn = playingVersusHuman || isNotComputerTurn;
+
+  return cellAvaliable && isHumanTurn;
 };
 
 const shouldComputerMove = function (state) {
-  return state.gameMode !== VS_HUMAN &&
-         !state.gameOver &&
-         (state.currentTurn === "x") === state.AI.playingX;
+  let playingVersusComputer = state.gameMode !== VS_HUMAN,
+      gameIsNotOver = !state.gameOver,
+      nextTurnIsUpToX = state.currentTurn === "x",
+      isComputerTurn = nextTurnIsUpToX === state.AI.playingX;
+
+  return playingVersusComputer && gameIsNotOver && isComputerTurn;
 };
 
 const gameTick = function (move) {
