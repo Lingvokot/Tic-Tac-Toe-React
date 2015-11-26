@@ -32,8 +32,8 @@ const minimax = function (game, depth) {
   }
 
   moves = getAvaliableMoves(game.gameGrid);
-  moves = moves.map(move => simulateMove(game, move));
-  scores = moves.map(move => minimax(move, depth+1));
+  let possibleStates = moves.map(move => simulateMove(game, move));
+  scores = possibleStates.map(state => minimax(state, depth+1));
 
   if(depth === 0) {
     let maxElementIndex = getMaxElementIndex(scores);
