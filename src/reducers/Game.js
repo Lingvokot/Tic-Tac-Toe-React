@@ -108,25 +108,80 @@ export const checkBoard = function (board) {
 };
 
 const checkRows = function (b) {
+  let cellIsNotEmpty,
+      someoneWon;
+
+  const allElementsInRowAreSame = row => {
+    let firstElement = row[0];
+    return row.every(element => element === firstElement);
+  }
+
   for (let i = 0; i < b.length; i++) {
-    if(b[i][0] === b[i][1] && b[i][1] === b[i][2] && b[i][0] !== "")
+    cellIsNotEmpty = !isCellEmpty(b[i][0]);
+    someoneWon = cellIsNotEmpty && allElementsInRowAreSame(b[i]);
+    if(someoneWon)
       return b[i][0];
   }
 };
 
+
 const checkColumns = function (b) {
+  let cellIsNotEmpty,
+      someoneWon;
+
+  const allElementsInColumnAreSame = (board, column) => {
+    for(let i = 1; i < board.length; i++) {
+      if(board[i][column] !== board[i-1][column]) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   for (let i = 0; i < b.length; i++) {
-    if(b[0][i] === b[1][i] && b[1][i] === b[2][i] && b[0][i] !== "")
+    cellIsNotEmpty = !isCellEmpty(b[0][i]);
+    someoneWon = allElementsInColumnAreSame(b, i) && cellIsNotEmpty;
+    if(someoneWon)
       return b[0][i];
   }
 }
 
 const checkDiagonals = function (b) {
-  if((b[0][0] === b[1][1] && b[1][1] === b[2][2] ||
-      b[0][2] === b[1][1] && b[1][1] === b[2][0]) &&
-      b[1][1] !== "") {
+  let cellIsNotEmpty = !isCellEmpty(b[1][1]),
+      someoneWon;
+
+  const allElemenstInMainDiagonalAreSame = board => {
+    for(let i = 1; i < board.length; i++) {
+      if(board[i][i] !== board[i-1][i-1]) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  const allElemenstInMinorDiagonalAreSame = board => {
+    for(let i = 1; i < board.length; i++) {
+      if(board[i][board.length-i-1] !== board[i-1][board.length-i]) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  const oneOfDiagonalsHaveAllSameElements = (board) => {
+    return allElemenstInMinorDiagonalAreSame(board) ||
+           allElemenstInMainDiagonalAreSame(board);
+  }
+
+  someoneWon = oneOfDiagonalsHaveAllSameElements(b) && cellIsNotEmpty;
+
+  if(someoneWon) {
     return b[1][1];
   }
+}
+
+const isCellEmpty = function (cell) {
+  return cell === "";
 }
 
 const isBoardFull = function (b) {
