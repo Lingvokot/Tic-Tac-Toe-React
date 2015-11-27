@@ -83,15 +83,22 @@ describe("Game Actions", () => {
                       ["x","",""]];
     state.currentTurn = "o";
 
-    const oldSetTimeout = setTimeout;
+    const originalSetTimeout = setTimeout;
+    let myTimeout;
+
+    beforeEach(() => {
+      setTimeout = (func, timeout) => {
+         expect(timeout).to.equal(myTimeout);
+         func();
+      };
+    });
+
+    afterEach(() => {
+      setTimeout = originalSetTimeout;
+    });
 
     it("should use specified timeout and dispatch an action APPLY_MOVE", () => {
-      let myTimeout = 200,
-          newSetTimeout = (func, timeout) => {
-             expect(timeout).to.equal(myTimeout);
-             func();
-          };
-      setTimeout = newSetTimeout;
+      myTimeout = 200;
       applyComputerMoveAfterTimeout(state, myTimeout)(
         (action) => {
           action.type.should.be.equal(APPLY_MOVE);
@@ -100,12 +107,7 @@ describe("Game Actions", () => {
     });
 
     it("should use specified timeout and dispatch an action APPLY_MOVE", () => {
-      let myTimeout = 100,
-          newSetTimeout = (func, timeout) => {
-             expect(timeout).to.equal(myTimeout);
-             func();
-          };
-      setTimeout = newSetTimeout;
+      myTimeout = 100;
       applyComputerMoveAfterTimeout(state, myTimeout)(
         (action) => {
           action.type.should.be.equal(APPLY_MOVE);
@@ -113,7 +115,7 @@ describe("Game Actions", () => {
       );
     });
 
-    setTimeout = oldSetTimeout;
+
   });
 
   describe("resetGameAction", () => {
