@@ -23,7 +23,7 @@ describe("game reducer", () => {
 
     var state;
 
-    beforeEach(function() {
+    beforeEach(() => {
       state = initialGameState().toJS();
       Math.random = () => 0.99;
     });
@@ -64,7 +64,7 @@ describe("game reducer", () => {
     var state,
         previousState;
 
-    beforeEach(function() {
+    beforeEach(() => {
       state = initialGameState().toJS();
     });
 
@@ -251,12 +251,12 @@ describe("game reducer", () => {
     var state,
         originalMathRandom = Math.random;
 
-    beforeEach(function() {
+    beforeEach(() => {
       state = initialGameState().toJS();
       Math.random = () => 0.99;
     });
 
-    afterEach(function() {
+    afterEach(() => {
       Math.random = originalMathRandom;
     });
 
@@ -336,12 +336,12 @@ describe("game reducer", () => {
     var state,
         originalMathRandom = Math.random;
 
-    beforeEach(function() {
+    beforeEach(() => {
       state = initialGameState().toJS();
       Math.random = () => 0;
     });
 
-    afterEach(function() {
+    afterEach(() => {
       Math.random = originalMathRandom;
     });
 
