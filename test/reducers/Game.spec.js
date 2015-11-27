@@ -246,13 +246,22 @@ describe("game reducer", () => {
 
 
 
-  describe("AI", () => {
+  describe("AI - best moves", () => {
 
-    var state;
+    var state,
+        originalMathRandom = Math.random;
+
+    beforeEach(function() {
+      state = initialGameState().toJS();
+      Math.random = () => 0.99;
+    });
+
+    afterEach(function() {
+      Math.random = originalMathRandom;
+    });
 
     it("should be able to make turn", () => {
-      Math.random = () => 0.99;
-      state = initialGameState().toJS();
+
       state.gameMode = EASY;
 
       state = game(Immutable.fromJS(state), applyMoveAction({x:0,y:0})).toJS();
@@ -265,7 +274,6 @@ describe("game reducer", () => {
     });
 
     it("should be able to make turn", () => {
-      state = initialGameState().toJS();
       state.gameMode = EASY;
       state.AI.playingX = true;
       state.gameGrid = [["x","",""],
@@ -281,7 +289,6 @@ describe("game reducer", () => {
     });
 
     it("should choose best turn possible", () => {
-      state = initialGameState().toJS();
       state.gameMode = EASY;
       state.gameGrid[0][0] = "x";
       state.currentTurn = "o";
@@ -294,7 +301,6 @@ describe("game reducer", () => {
     });
 
     it("should choose best turn possible", () => {
-      state = initialGameState().toJS();
       state.gameMode = EASY;
       state.AI.playingX = true;
       state.gameGrid = [["x","",""],
@@ -310,7 +316,6 @@ describe("game reducer", () => {
     });
 
     it("should choose best turn possible", () => {
-      state = initialGameState().toJS();
       state.gameMode = EASY;
       state.gameGrid = [["x","",""],
                         ["","o",""],
@@ -324,9 +329,23 @@ describe("game reducer", () => {
                                     ["x","",""]]);
     });
 
-    it("should make random turns sometimes", () => {
-      Math.random = () => 0;
+  });
+
+  describe("AI - random moves", () => {
+
+    var state,
+        originalMathRandom = Math.random;
+
+    beforeEach(function() {
       state = initialGameState().toJS();
+      Math.random = () => 0;
+    });
+
+    afterEach(function() {
+      Math.random = originalMathRandom;
+    });
+
+    it("should make random turns sometimes", () => {
       state.gameMode = EASY;
       state.gameGrid[0][0] = "x";
       state.currentTurn = "o";
@@ -339,7 +358,6 @@ describe("game reducer", () => {
     });
 
     it("should make random turns sometimes", () => {
-      state = initialGameState().toJS();
       state.gameMode = EASY;
       state.gameGrid = [["x","o","x"],
                         ["o","x",""],
