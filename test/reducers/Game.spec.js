@@ -10,6 +10,7 @@ import Immutable from "immutable";
 
 describe("game reducer", () => {
 
+
   it("should exist", () => {
     game.should.exist;
   });
@@ -18,38 +19,44 @@ describe("game reducer", () => {
     game.should.be.function;
   });
 
-  it("should be able to hadle RESET_GAME action", () => {
-    var state = initialGameState().toJS();
-    state.gameGrid = [["","o",""],
-                      ["o","o","x"],
-                      ["x","x","x"]];
-    state.gameOver = true;
-    state = game(Immutable.fromJS(state), resetGameAction());
-    state.should.be.eql(initialGameState());
-  });
+  describe("action handling", () => {
 
-  it("should be able set game mode", () => {
-    var state = initialGameState().toJS();
-    state = game(Immutable.fromJS(state), setGameModeAction(VS_HUMAN)).toJS();
-    state.gameMode.should.be.equal(VS_HUMAN);
-  });
+    var state;
 
-  it("should be able set game mode", () => {
-    var state = initialGameState().toJS();
-    state = game(Immutable.fromJS(state), setGameModeAction(EASY)).toJS();
-    state.gameMode.should.be.equal(EASY);
-  });
+    beforeEach(function() {
+      state = initialGameState().toJS();
+      Math.random = () => 0.99;
+    });
 
-  it("should be able set game mode", () => {
-    var state = initialGameState().toJS();
-    state = game(Immutable.fromJS(state), setGameModeAction(MEDIUM)).toJS();
-    state.gameMode.should.be.equal(MEDIUM);
-  });
+    it("should be able to hadle RESET_GAME action", () => {
+      state.gameGrid = [["","o",""],
+                        ["o","o","x"],
+                        ["x","x","x"]];
+      state.gameOver = true;
+      state = game(Immutable.fromJS(state), resetGameAction());
+      state.should.be.eql(initialGameState());
+    });
 
-  it("should be able set game mode", () => {
-    var state = initialGameState().toJS();
-    state = game(Immutable.fromJS(state), setGameModeAction(HARD)).toJS();
-    state.gameMode.should.be.equal(HARD);
+    it("should be able set game mode", () => {
+      state = game(Immutable.fromJS(state), setGameModeAction(VS_HUMAN)).toJS();
+      state.gameMode.should.be.equal(VS_HUMAN);
+    });
+
+    it("should be able set game mode", () => {
+      state = game(Immutable.fromJS(state), setGameModeAction(EASY)).toJS();
+      state.gameMode.should.be.equal(EASY);
+    });
+
+    it("should be able set game mode", () => {
+      state = game(Immutable.fromJS(state), setGameModeAction(MEDIUM)).toJS();
+      state.gameMode.should.be.equal(MEDIUM);
+    });
+
+    it("should be able set game mode", () => {
+      state = game(Immutable.fromJS(state), setGameModeAction(HARD)).toJS();
+      state.gameMode.should.be.equal(HARD);
+    });
+
   });
 
   describe("gameplay handling", () => {
@@ -57,8 +64,11 @@ describe("game reducer", () => {
     var state,
         previousState;
 
-    it("should change grid cell if specified", () => {
+    beforeEach(function() {
       state = initialGameState().toJS();
+    });
+
+    it("should change grid cell if specified", () => {
 			previousState = state;
       state = game(Immutable.fromJS(state), applyMoveAction({x:0,y:0})).toJS();
       state.should.be.not.equal(previousState);
@@ -69,7 +79,6 @@ describe("game reducer", () => {
     });
 
     it("should be able to handle victory if 3 'x' or 'o' in one row", () => {
-      state = initialGameState().toJS();
       state.gameGrid = [["x","x",""],
                         ["o","o",""],
                         ["","",""]];
@@ -84,7 +93,6 @@ describe("game reducer", () => {
     });
 
     it("should be able to handle victory if 3 'x' or 'o' in one row", () => {
-      state = initialGameState().toJS();
       state.gameGrid = [["x","x",""],
                         ["o","o",""],
                         ["x","",""]];
@@ -100,7 +108,6 @@ describe("game reducer", () => {
       });
 
     it("should be able to handle victory if 3 'x' or 'o' in one row", () => {
-      state = initialGameState().toJS();
       state.gameGrid = [["x","o",""],
                         ["o","o",""],
                         ["x","x",""]];
@@ -116,7 +123,6 @@ describe("game reducer", () => {
     });
 
     it("should be able to handle victory if 3 'x' or 'o' in one column", () => {
-      state = initialGameState().toJS();
       state.gameGrid = [["x","o",""],
                         ["","o","x"],
                         ["x","",""]];
@@ -132,7 +138,6 @@ describe("game reducer", () => {
     });
 
     it("should be able to handle victory if 3 'x' or 'o' in one column", () => {
-      state = initialGameState().toJS();
       state.gameGrid = [["x","o","o"],
                         ["","o","x"],
                         ["x","",""]];
@@ -148,7 +153,6 @@ describe("game reducer", () => {
     });
 
     it("should be able to handle victory if 3 'x' or 'o' in one column", () => {
-      state = initialGameState().toJS();
       state.gameGrid = [["x","","o"],
                         ["","x",""],
                         ["x","","o"]];
@@ -164,7 +168,6 @@ describe("game reducer", () => {
     });
 
     it("should be able to handle victory if 3 'x' or 'o' in diagonal", () => {
-      state = initialGameState().toJS();
       state.gameGrid = [["x","o","o"],
                         ["o","",""],
                         ["x","","x"]];
@@ -180,7 +183,6 @@ describe("game reducer", () => {
     });
 
     it("should be able to handle victory if 3 'x' or 'o' in diagonal", () => {
-      state = initialGameState().toJS();
       state.gameGrid = [["x","","o"],
                         ["x","",""],
                         ["o","","x"]];
@@ -195,7 +197,6 @@ describe("game reducer", () => {
     });
 
     it("should be able to handle tie", () => {
-      state = initialGameState().toJS();
       state.gameGrid = [["x","o","x"],
                         ["o","x",""],
                         ["o","x","o"]];
@@ -213,7 +214,6 @@ describe("game reducer", () => {
     });
 
     it("should be able to handle tie", () => {
-      state = initialGameState().toJS();
       state.gameGrid = [["x","o","x"],
                         ["o","x","x"],
                         ["o","","o"]];
