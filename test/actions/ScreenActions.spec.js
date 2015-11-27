@@ -18,7 +18,7 @@ describe("Screen Actions", () => {
   });
 
   it("should have parameter screen equal to function argument", () => {
-    var action = setCurrentScreenAction(MENU_SCREEN);
+    const action = setCurrentScreenAction(MENU_SCREEN);
 
     const setMenuScreenAction = {
       screen: MENU_SCREEN,
