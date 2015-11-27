@@ -26,8 +26,10 @@ describe("Screen Actions", () => {
     };
 
     action.should.be.eql(setMenuScreenAction);
-
-    action = setCurrentScreenAction(GAME_SCREEN);
+  });
+  
+  it("should have parameter screen equal to function argument", () => {
+    const action = setCurrentScreenAction(GAME_SCREEN);
 
     const setGameScreenAction = {
       screen: GAME_SCREEN,
