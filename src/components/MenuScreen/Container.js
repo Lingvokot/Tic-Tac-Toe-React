@@ -1,7 +1,7 @@
 import React from "react";
 
 const Container = (props) => {
-  var containerStyle = {
+  let containerStyle = {
     display: "flex",
     flexFlow: "column nowrap",
     width: "30rem",
