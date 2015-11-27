@@ -7,12 +7,7 @@ import GameScreen from "./GameScreen/GameScreen.js";
 import { connect } from "react-redux";
 import {MENU_SCREEN, GAME_SCREEN} from "../actions/ScreenActions.js";
 
-const App = React.createClass({
-  PropTypes: {
-    currentScreen: React.PropTypes.string,
-    gameGrid: React.PropTypes.array,
-    victoryStatistics: React.PropTypes.object
-  },
+class App extends React.Component {
 
   renderScreen(screen) {
     switch(screen) {
@@ -26,12 +21,19 @@ const App = React.createClass({
     default:
       return <MenuScreen dispatch={this.props.dispatch}/>
     }
-  },
+  }
 
   render () {
     return this.renderScreen(this.props.currentScreen);
   }
-});
+}
+
+App.propTypes = {
+  currentScreen: React.PropTypes.string,
+  dispatch: React.PropTypes.func.isRequired,
+  gameGrid: React.PropTypes.array,
+  victoryStatistics: React.PropTypes.object
+};
 
 function select(state) {
   return {
