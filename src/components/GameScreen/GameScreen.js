@@ -14,25 +14,11 @@ import { MENU_SCREEN } from "../../actions/ScreenActions.js";
 import gameTick from "../../actions/GameActions.js";
 import { resetGameAction } from "../../actions/GameActions.js";
 
-const GameScreen = React.createClass({
-  PropTypes: {
-    dispatch: React.PropTypes.func,
-    cellValues: React.PropTypes.array,
-    victoryStatistics: React.PropTypes.object
-  },
-
-  containerStyle: {
-    fontSize: "3rem",
-    fontWeight: "bold",
-    textAlign: "center",
-    width: "60rem",
-    margin: "auto"
-  },
-
-  render () {
+class GameScreen extends React.Component {
+  render() {
     return (
       <Container>
-        <Header style={this.containerStyle}
+        <Header
             text="Tic Tac Toe React"
         />
         <Sidebar />
@@ -59,6 +45,13 @@ const GameScreen = React.createClass({
       </Container>
     );
   }
-});
+}
+
+GameScreen.propTypes = {
+  cellValues: React.PropTypes.array,
+  dispatch: React.PropTypes.func,
+  victoryStatistics: React.PropTypes.object
+};
+
 
 export default GameScreen;
