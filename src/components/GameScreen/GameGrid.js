@@ -50,7 +50,7 @@ let gameGridStyle = {
   backgroundColor: "#123456"
 };
 
-class GridCell extends React.Component {
+export class GridCell extends React.Component {
 
   renderImage(value) {
     switch(value) {
@@ -77,8 +77,8 @@ class GridCell extends React.Component {
 GridCell.propTypes = {
   cellValue: React.PropTypes.string,
   clickHandler: React.PropTypes.func.isRequired,
-  x: React.PropTypes.number,
-  y: React.PropTypes.number
+  x: React.PropTypes.string,
+  y: React.PropTypes.string
 };
 
 
