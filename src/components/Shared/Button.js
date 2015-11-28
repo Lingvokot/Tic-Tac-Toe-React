@@ -36,7 +36,7 @@ class Button extends React.Component {
 Button.propTypes = {
   onClick: React.PropTypes.func.isRequired,
   text: React.PropTypes.string,
-  useWrapper: React.PropTypes.string
+  useWrapper: React.PropTypes.bool
 };
 
 let buttonStyle = {
