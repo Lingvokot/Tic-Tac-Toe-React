@@ -101,7 +101,10 @@ const Image = (props) => {
         style={imageStyle}
     />
   );
-
 };
+
+Image.propTypes = {
+  image: React.PropTypes.string
+}
 
 export default GameGrid;
