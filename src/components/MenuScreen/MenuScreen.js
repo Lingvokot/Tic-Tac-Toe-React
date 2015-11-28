@@ -11,60 +11,58 @@ import {VS_HUMAN, EASY, MEDIUM, HARD} from "../../reducers/Game.js";
 
 const screenTitle = "Tic Tac Toe React";
 
-const MenuScreen = React.createClass({
-  PropTypes: {
-    dispatch: React.PropTypes.func.isRequired
-  },
-
-  headerStyle: {
+const MenuScreen = (props) => {
+  let headerStyle = {
     textAlign: "center",
     color: "white"
-  },
+  };
 
-  render () {
-    return (
-      <Container>
-        <h1 style={this.headerStyle}>
-          {screenTitle}
-        </h1>
-        <Button onClick={() => {
-                this.props.dispatch(setCurrentScreenAction(GAME_SCREEN))
-                this.props.dispatch(setGameModeAction(VS_HUMAN));
-              }
+  return (
+    <Container>
+      <h1 style={headerStyle}>
+        {screenTitle}
+      </h1>
+      <Button onClick={() => {
+              props.dispatch(setCurrentScreenAction(GAME_SCREEN))
+              props.dispatch(setGameModeAction(VS_HUMAN));
             }
-            text="Play with Human"
-            useWrapper
-        />
-        <h2 style={this.headerStyle}>
-          {"Play with computer"}
-        </h2>
-        <Button onClick={() => {
-                this.props.dispatch(setCurrentScreenAction(GAME_SCREEN))
-                this.props.dispatch(setGameModeAction(EASY));
-              }
+          }
+          text="Play with Human"
+          useWrapper
+      />
+      <h2 style={headerStyle}>
+        {"Play with computer"}
+      </h2>
+      <Button onClick={() => {
+              props.dispatch(setCurrentScreenAction(GAME_SCREEN))
+              props.dispatch(setGameModeAction(EASY));
             }
-            text="EASY"
-            useWrapper
-        />
-        <Button onClick={() => {
-                this.props.dispatch(setCurrentScreenAction(GAME_SCREEN))
-                this.props.dispatch(setGameModeAction(MEDIUM));
-              }
+          }
+          text="EASY"
+          useWrapper
+      />
+      <Button onClick={() => {
+              props.dispatch(setCurrentScreenAction(GAME_SCREEN))
+              props.dispatch(setGameModeAction(MEDIUM));
             }
-            text="MEDIUM"
-            useWrapper
-        />
-        <Button onClick={() => {
-                this.props.dispatch(setCurrentScreenAction(GAME_SCREEN))
-                this.props.dispatch(setGameModeAction(HARD));
-              }
+          }
+          text="MEDIUM"
+          useWrapper
+      />
+      <Button onClick={() => {
+              props.dispatch(setCurrentScreenAction(GAME_SCREEN))
+              props.dispatch(setGameModeAction(HARD));
             }
-            text="HARD"
-            useWrapper
-        />
-      </Container>
-    );
-  }
-});
+          }
+          text="HARD"
+          useWrapper
+      />
+    </Container>
+  );
+};
+
+MenuScreen.propTypes = {
+  dispatch: React.PropTypes.func.isRequired
+}
 
 export default MenuScreen;
