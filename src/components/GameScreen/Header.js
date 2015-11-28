@@ -16,4 +16,8 @@ const Header = (props) => {
   );
 };
 
+Header.propTypes = {
+  text: React.PropTypes.string
+}
+
 export default Header;
