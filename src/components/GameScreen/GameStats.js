@@ -1,42 +1,40 @@
 import React from "react";
 
-const GameStats = React.createClass({
-  PropTypes: {
-    victoryStatistics: React.PropTypes.object
-  },
+const GameStats = (props) => {
 
-  gameStatsStyle: {
-    fontSize: "1.5rem",
-    margin: "1rem"
-  },
+  let gameStatsStyle = {
+        fontSize: "1.5rem",
+        margin: "1rem"
+      },
+      paragraphStyle = {
+        display: "flex",
+        justifyContent: "space-between",
+        margin: "0.4rem 0rem"
+      };
 
-  paragraphStyle: {
-    display: "flex",
-    justifyContent: "space-between",
-    margin: "0.4rem 0rem"
-  },
-
-  render () {
-    return (
-      <div style={this.gameStatsStyle}>
+  return (
+    <div style={gameStatsStyle}>
+      <span>
+        Wins
+      </span>
+      <p style={paragraphStyle}>
+        X
         <span>
-          Wins
+          {props.victoryStatistics.x}
         </span>
-        <p style={this.paragraphStyle}>
-          X
-          <span>
-            {this.props.victoryStatistics.x}
-          </span>
-        </p>
-        <p style={this.paragraphStyle}>
-          O
-          <span>
-            {this.props.victoryStatistics.o}
-          </span>
-        </p>
-      </div>
-    );
-  }
-});
+      </p>
+      <p style={paragraphStyle}>
+        O
+        <span>
+          {props.victoryStatistics.o}
+        </span>
+      </p>
+    </div>
+  );
+};
+
+GameStats.propTypes = {
+  victoryStatistics: React.PropTypes.object
+};
 
 export default GameStats;
