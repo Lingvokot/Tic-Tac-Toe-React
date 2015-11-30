@@ -11,54 +11,56 @@ import {VS_HUMAN, EASY, MEDIUM, HARD} from "../../reducers/Game.js";
 
 const screenTitle = "Tic Tac Toe React";
 
-const MenuScreen = (props) => {
-  let headerStyle = {
-    textAlign: "center",
-    color: "white"
-  };
+class MenuScreen extends React.Component {
+  render() {
+    return (
+      <Container>
+        <h1 style={headerStyle}>
+          {screenTitle}
+        </h1>
+        <Button onClick={() => {
+                this.props.dispatch(setCurrentScreenAction(GAME_SCREEN))
+                this.props.dispatch(setGameModeAction(VS_HUMAN));
+              }
+            }
+            text="Play with Human"
+            useWrapper
+        />
+        <h2 style={headerStyle}>
+          {"Play with computer"}
+        </h2>
+        <Button onClick={() => {
+                this.props.dispatch(setCurrentScreenAction(GAME_SCREEN))
+                this.props.dispatch(setGameModeAction(EASY));
+              }
+            }
+            text="EASY"
+            useWrapper
+        />
+        <Button onClick={() => {
+                this.props.dispatch(setCurrentScreenAction(GAME_SCREEN))
+                this.props.dispatch(setGameModeAction(MEDIUM));
+              }
+            }
+            text="MEDIUM"
+            useWrapper
+        />
+        <Button onClick={() => {
+                this.props.dispatch(setCurrentScreenAction(GAME_SCREEN))
+                this.props.dispatch(setGameModeAction(HARD));
+              }
+            }
+            text="HARD"
+            useWrapper
+        />
+      </Container>
+    );
+  }
+}
 
-  return (
-    <Container>
-      <h1 style={headerStyle}>
-        {screenTitle}
-      </h1>
-      <Button onClick={() => {
-              props.dispatch(setCurrentScreenAction(GAME_SCREEN))
-              props.dispatch(setGameModeAction(VS_HUMAN));
-            }
-          }
-          text="Play with Human"
-          useWrapper
-      />
-      <h2 style={headerStyle}>
-        {"Play with computer"}
-      </h2>
-      <Button onClick={() => {
-              props.dispatch(setCurrentScreenAction(GAME_SCREEN))
-              props.dispatch(setGameModeAction(EASY));
-            }
-          }
-          text="EASY"
-          useWrapper
-      />
-      <Button onClick={() => {
-              props.dispatch(setCurrentScreenAction(GAME_SCREEN))
-              props.dispatch(setGameModeAction(MEDIUM));
-            }
-          }
-          text="MEDIUM"
-          useWrapper
-      />
-      <Button onClick={() => {
-              props.dispatch(setCurrentScreenAction(GAME_SCREEN))
-              props.dispatch(setGameModeAction(HARD));
-            }
-          }
-          text="HARD"
-          useWrapper
-      />
-    </Container>
-  );
+let headerStyle = {
+  textAlign: "center",
+  color: "white"
 };
 
 MenuScreen.propTypes = {
