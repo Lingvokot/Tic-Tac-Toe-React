@@ -16,27 +16,26 @@ import { resetGameAction } from "../../actions/GameActions.js";
 
 class GameScreen extends React.Component {
   render() {
+    let {dispatch, gameGrid, victoryStatistics} = this.props;
     return (
       <Container>
-        <Header
-            text="Tic Tac Toe React"
-        />
+        <Header text="Tic Tac Toe React"/>
         <Sidebar />
         <MiddleContainer>
           <GameGrid cellClickHandler={(x, y) =>
-                this.props.dispatch(gameTick({x:x, y:y}))
+                dispatch(gameTick({x:x, y:y}))
               }
-              cellValues={this.props.cellValues}
+              gameGrid={gameGrid}
               onUpdate={() =>
-                this.props.dispatch(gameTick())
+                dispatch(gameTick())
               }
           />
         </MiddleContainer>
         <Sidebar>
-          <GameStats victoryStatistics={this.props.victoryStatistics} />
+          <GameStats victoryStatistics={victoryStatistics}/>
           <Button onClick={() => {
-                  this.props.dispatch(setCurrentScreenAction(MENU_SCREEN));
-                  this.props.dispatch(resetGameAction());
+                  dispatch(setCurrentScreenAction(MENU_SCREEN));
+                  dispatch(resetGameAction());
                 }
               }
               text="Menu"
@@ -48,8 +47,8 @@ class GameScreen extends React.Component {
 }
 
 GameScreen.propTypes = {
-  cellValues: React.PropTypes.array,
   dispatch: React.PropTypes.func,
+  gameGrid: React.PropTypes.array,
   victoryStatistics: React.PropTypes.object
 };
 
