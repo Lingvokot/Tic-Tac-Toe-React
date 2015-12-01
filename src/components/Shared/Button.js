@@ -44,16 +44,20 @@ let buttonStyle = {
   boxShadow: "0.2rem 0.2rem 0.2rem rgba(0,0,0,0.8)"
 };
 
-const ButtonWrapper = (props) => {
+const ButtonWrapper = ({children}) => {
   let wrapperStyle = {
     margin: "1rem auto"
   }
 
   return (
     <div style={wrapperStyle}>
-      {props.children}
+      {children}
     </div>
   );
+}
+
+ButtonWrapper.propTypes = {
+  children: React.PropTypes.node
 }
 
 export default Button;
