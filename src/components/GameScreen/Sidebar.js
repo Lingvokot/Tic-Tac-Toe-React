@@ -1,6 +1,6 @@
 import React from "react";
 
-const Sidebar = (props) => {
+const Sidebar = ({children}) => {
   var sidebarStyle = {
     flex: 1,
     display: "flex",
@@ -13,7 +13,7 @@ const Sidebar = (props) => {
 
   return (
     <div style={sidebarStyle}>
-      {props.children}
+      {children}
     </div>
   );
 };
