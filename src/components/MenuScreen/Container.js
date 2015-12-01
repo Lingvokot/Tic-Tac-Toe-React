@@ -1,6 +1,6 @@
 import React from "react";
 
-const Container = (props) => {
+const Container = ({children}) => {
   let containerStyle = {
     display: "flex",
     flexFlow: "column nowrap",
@@ -12,7 +12,7 @@ const Container = (props) => {
 
   return (
     <div style={containerStyle}>
-      {props.children}
+      {children}
     </div>
   );
 };
