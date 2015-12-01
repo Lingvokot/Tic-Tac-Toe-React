@@ -1,6 +1,6 @@
 import React from "react";
 
-const GameStats = (props) => {
+const GameStats = ({victoryStatistics:{x,o}}) => {
 
   let gameStatsStyle = {
         fontSize: "1.5rem",
@@ -11,7 +11,7 @@ const GameStats = (props) => {
         justifyContent: "space-between",
         margin: "0.4rem 0rem"
       };
-
+      
   return (
     <div style={gameStatsStyle}>
       <span>
@@ -20,13 +20,13 @@ const GameStats = (props) => {
       <p style={paragraphStyle}>
         X
         <span>
-          {props.victoryStatistics.x}
+          {x}
         </span>
       </p>
       <p style={paragraphStyle}>
         O
         <span>
-          {props.victoryStatistics.o}
+          {o}
         </span>
       </p>
     </div>
