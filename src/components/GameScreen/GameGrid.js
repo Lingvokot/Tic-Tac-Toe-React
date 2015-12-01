@@ -28,7 +28,7 @@ class GameGrid extends React.Component {
   render() {
     return (
       <div style={gameGridStyle}>
-        {this.renderGrid(this.props.cellValues, this.props.cellClickHandler)}
+        {this.renderGrid(this.props.gameGrid, this.props.cellClickHandler)}
       </div>
     );
   }
@@ -36,7 +36,7 @@ class GameGrid extends React.Component {
 
 GameGrid.propTypes = {
   cellClickHandler: React.PropTypes.func,
-  cellValues: React.PropTypes.array,
+  gameGrid: React.PropTypes.array,
   onUpdate: React.PropTypes.func
 };
 
@@ -91,13 +91,13 @@ let gridCellStyle = {
   backgroundColor: "#6f71a0"
 };
 
-const Image = (props) => {
+const Image = ({image}) => {
   var imageStyle = {
     width: "95%"
   }
 
   return (
-    <img src={props.image}
+    <img src={image}
         style={imageStyle}
     />
   );
