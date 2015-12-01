@@ -1,6 +1,6 @@
 import React from "react";
 
-const Container = (props) => {
+const Container = ({children}) => {
   var containerStyle = {
     display: "flex",
     flexFlow: "row wrap",
@@ -12,7 +12,7 @@ const Container = (props) => {
 
   return (
     <div style={containerStyle}>
-      {props.children}
+      {children}
     </div>
   );
 };
