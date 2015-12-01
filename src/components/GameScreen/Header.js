@@ -1,6 +1,6 @@
 import React from "react";
 
-const Header = (props) => {
+const Header = ({text}) => {
   var headerStyle = {
     width: "100%",
     fontSize: "3rem",
@@ -11,7 +11,7 @@ const Header = (props) => {
 
   return (
     <header style={headerStyle}>
-      {props.text}
+      {text}
     </header>
   );
 };
