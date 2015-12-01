@@ -31,7 +31,7 @@ describe("GameScreen", () => {
     it("Button should dispatch proper actions on click", () => {
       const gameScreen = ReactTestUtils.renderIntoDocument(
         <GameScreen dispatch={dispatch}
-            cellValues={[["","",""],["","",""],["","",""]]}
+            gameGrid={[["","",""],["","",""],["","",""]]}
             victoryStatistics={{x:0,y:0}}/>
       );
       var button = ReactTestUtils.findRenderedComponentWithType(
@@ -58,7 +58,7 @@ describe("GameScreen", () => {
     it("Should use cellClickHandler", () => {
       const gameScreen = ReactTestUtils.renderIntoDocument(
         <GameScreen dispatch={dispatch}
-            cellValues={[["","",""],["","",""],["","",""]]}
+            gameGrid={[["","",""],["","",""],["","",""]]}
             victoryStatistics={{x:0,y:0}}/>
       );
 
@@ -77,7 +77,7 @@ describe("GameScreen", () => {
     it("Should use onUpdate", () => {
       const gameScreen = ReactTestUtils.renderIntoDocument(
         <GameScreen dispatch={dispatch}
-            cellValues={[["","",""],["","",""],["","",""]]}
+            gameGrid={[["","",""],["","",""],["","",""]]}
             victoryStatistics={{x:0,y:0}}/>
       );
 
