@@ -1,6 +1,6 @@
 import React from "react";
 
-const MiddleContainer = (props) => {
+const MiddleContainer = ({children}) => {
   var middleContainerStyle = {
     flex: 2,
     margin: "0.5rem"
@@ -8,7 +8,7 @@ const MiddleContainer = (props) => {
 
   return (
     <div style={middleContainerStyle}>
-      {props.children}
+      {children}
     </div>
   );
 
