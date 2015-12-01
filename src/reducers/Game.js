@@ -28,11 +28,11 @@ export const initialGameState = function() {
 const game = function (state = initialGameState(), action) {
   switch (action.type) {
     case APPLY_MOVE:
-      return applyMove(state, action.x, action.y);
+      return applyMove(state, action);
     case START_NEXT_MATCH:
       return startNextMatch(state);
     case SET_GAME_MODE:
-      return setGameMode(state, action.mode);
+      return setGameMode(state, action);
     case RESET_GAME:
       return initialGameState();
     default:
@@ -40,11 +40,11 @@ const game = function (state = initialGameState(), action) {
   }
 };
 
-const setGameMode = function (state, mode) {
+const setGameMode = function (state, {mode}) {
   return state.set("gameMode", mode);
 }
 
-const applyMove = function (state, x, y) {
+const applyMove = function (state, {x, y}) {
   var newState = state.setIn(
     ["gameGrid", x, y],
     state.get("currentTurn")
