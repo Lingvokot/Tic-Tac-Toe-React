@@ -13,14 +13,15 @@ const screenTitle = "Tic Tac Toe React";
 
 class MenuScreen extends React.Component {
   render() {
+    const {dispatch} = this.props;
     return (
       <Container>
         <h1 style={headerStyle}>
           {screenTitle}
         </h1>
         <Button onClick={() => {
-                this.props.dispatch(setCurrentScreenAction(GAME_SCREEN))
-                this.props.dispatch(setGameModeAction(VS_HUMAN));
+                dispatch(setCurrentScreenAction(GAME_SCREEN))
+                dispatch(setGameModeAction(VS_HUMAN));
               }
             }
             text="Play with Human"
@@ -30,24 +31,24 @@ class MenuScreen extends React.Component {
           {"Play with computer"}
         </h2>
         <Button onClick={() => {
-                this.props.dispatch(setCurrentScreenAction(GAME_SCREEN))
-                this.props.dispatch(setGameModeAction(EASY));
+                dispatch(setCurrentScreenAction(GAME_SCREEN))
+                dispatch(setGameModeAction(EASY));
               }
             }
             text="EASY"
             useWrapper
         />
         <Button onClick={() => {
-                this.props.dispatch(setCurrentScreenAction(GAME_SCREEN))
-                this.props.dispatch(setGameModeAction(MEDIUM));
+                dispatch(setCurrentScreenAction(GAME_SCREEN))
+                dispatch(setGameModeAction(MEDIUM));
               }
             }
             text="MEDIUM"
             useWrapper
         />
         <Button onClick={() => {
-                this.props.dispatch(setCurrentScreenAction(GAME_SCREEN))
-                this.props.dispatch(setGameModeAction(HARD));
+                dispatch(setCurrentScreenAction(GAME_SCREEN))
+                dispatch(setGameModeAction(HARD));
               }
             }
             text="HARD"
