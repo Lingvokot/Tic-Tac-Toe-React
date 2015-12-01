@@ -9,22 +9,19 @@ import {MENU_SCREEN, GAME_SCREEN} from "../actions/ScreenActions.js";
 
 class App extends React.Component {
 
-  renderScreen(screen) {
-    switch(screen) {
+  renderScreen({currentScreen, ...gameProps}) {
+    switch(currentScreen) {
     case GAME_SCREEN:
-      return (
-      <GameScreen cellValues={this.props.gameGrid}
-          dispatch={this.props.dispatch}
-          victoryStatistics={this.props.victoryStatistics}
-      />);
+      return <GameScreen {...gameProps}/>
     case MENU_SCREEN:
     default:
-      return <MenuScreen dispatch={this.props.dispatch}/>
+      let {dispatch} = gameProps;
+      return <MenuScreen dispatch={dispatch}/>
     }
   }
 
   render () {
-    return this.renderScreen(this.props.currentScreen);
+    return this.renderScreen(this.props);
   }
 }
 
@@ -35,11 +32,11 @@ App.propTypes = {
   victoryStatistics: React.PropTypes.object
 };
 
-function select(state) {
+function select({screen, game}) {
   return {
-    currentScreen: state.screen,
-    gameGrid: state.game.get("gameGrid").toJS(),
-    victoryStatistics: state.game.get("victoryStatistics").toJS()
+    currentScreen: screen,
+    gameGrid: game.get("gameGrid").toJS(),
+    victoryStatistics: game.get("victoryStatistics").toJS()
   }
 }
 
