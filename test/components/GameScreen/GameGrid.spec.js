@@ -23,7 +23,7 @@ describe("GameGrid component", () => {
     var wasCalled = false;
     const grid = ReactTestUtils.renderIntoDocument(
       <GameGrid cellClickHandler={() => wasCalled = true}
-          cellValues={[["","",""],["","",""],["","",""]]}
+          gameGrid={[["","",""],["","",""],["","",""]]}
       />
     );
     var node = ReactDOM.findDOMNode(grid);
@@ -33,23 +33,23 @@ describe("GameGrid component", () => {
 
   describe("Grid tests", () => {
 
-    it("should generate cells depending on cellValues prop", () => {
+    it("should generate cells depending on gameGrid prop", () => {
       var grid = [["","",""],["","",""],["","",""]];
       const renderer = ReactTestUtils.createRenderer();
       renderer.render(
         <GameGrid cellClickHandler={() => undefined}
-            cellValues={grid}
+            gameGrid={grid}
         />
       );
       const gridNode = renderer.getRenderOutput();
       gridNode.props.children.length.should.be.equal(grid.length*grid.length);
     });
 
-    it("should generate cells depending on cellValues prop", () => {
+    it("should generate cells depending on gameGrid prop", () => {
       const renderer = ReactTestUtils.createRenderer();
       renderer.render(
         <GameGrid cellClickHandler={() => undefined}
-            cellValues={[[""]]}
+            gameGrid={[[""]]}
         />
       );
       const gridNode = renderer.getRenderOutput();
@@ -61,7 +61,7 @@ describe("GameGrid component", () => {
       const renderer = ReactTestUtils.createRenderer();
       renderer.render(
         <GameGrid cellClickHandler={() => undefined}
-            cellValues={grid}
+            gameGrid={grid}
         />
       );
 
@@ -76,7 +76,7 @@ describe("GameGrid component", () => {
       const renderer = ReactTestUtils.createRenderer();
       renderer.render(
         <GameGrid cellClickHandler={() => undefined}
-            cellValues={grid}
+            gameGrid={grid}
         />
       );
       renderer.getRenderOutput().props.children.every((node) =>
