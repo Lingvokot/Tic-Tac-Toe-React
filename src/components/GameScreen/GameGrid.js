@@ -77,8 +77,8 @@ export class GridCell extends React.Component {
 GridCell.propTypes = {
   cellValue: React.PropTypes.string,
   clickHandler: React.PropTypes.func.isRequired,
-  x: React.PropTypes.string,
-  y: React.PropTypes.string
+  x: React.PropTypes.number,
+  y: React.PropTypes.number
 };
 
 
