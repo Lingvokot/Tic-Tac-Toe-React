@@ -48,8 +48,10 @@ class GameScreen extends React.Component {
 
 GameScreen.propTypes = {
   dispatch: React.PropTypes.func,
-  gameGrid: React.PropTypes.array,
-  victoryStatistics: React.PropTypes.object
+  gameGrid: React.PropTypes.arrayOf(
+    React.PropTypes.arrayOf(React.PropTypes.string)
+  ),
+  victoryStatistics: React.PropTypes.objectOf(React.PropTypes.number)
 };
 
 
