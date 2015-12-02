@@ -1,5 +1,5 @@
 import { VS_HUMAN } from "../reducers/Game.js";
-import computeMove from "./AI.js";
+import computeMove from "../utils/AI.js";
 
 // Game action types
 export const APPLY_MOVE = "APPLY_MOVE";
