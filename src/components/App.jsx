@@ -28,8 +28,10 @@ class App extends React.Component {
 App.propTypes = {
   currentScreen: React.PropTypes.string,
   dispatch: React.PropTypes.func.isRequired,
-  gameGrid: React.PropTypes.array,
-  victoryStatistics: React.PropTypes.object
+  gameGrid: React.PropTypes.arrayOf(
+    React.PropTypes.arrayOf(React.PropTypes.string)
+  ),
+  victoryStatistics: React.PropTypes.objectOf(React.PropTypes.number)
 };
 
 function select({screen, game}) {
