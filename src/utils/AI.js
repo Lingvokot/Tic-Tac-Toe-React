@@ -1,4 +1,4 @@
-import { checkBoard } from "../reducers/Game.js";
+import checkBoard from "./CheckBoard.js";
 
 const difficultyModificator = {
   EASY: 0.8,
