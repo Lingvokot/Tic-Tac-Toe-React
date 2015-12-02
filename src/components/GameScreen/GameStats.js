@@ -11,7 +11,7 @@ const GameStats = ({victoryStatistics:{x,o}}) => {
         justifyContent: "space-between",
         margin: "0.4rem 0rem"
       };
-      
+
   return (
     <div style={gameStatsStyle}>
       <span>
@@ -34,7 +34,7 @@ const GameStats = ({victoryStatistics:{x,o}}) => {
 };
 
 GameStats.propTypes = {
-  victoryStatistics: React.PropTypes.object
+  victoryStatistics: React.PropTypes.objectOf(React.PropTypes.number)
 };
 
 export default GameStats;
