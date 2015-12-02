@@ -36,7 +36,9 @@ class GameGrid extends React.Component {
 
 GameGrid.propTypes = {
   cellClickHandler: React.PropTypes.func,
-  gameGrid: React.PropTypes.array,
+  gameGrid: React.PropTypes.arrayOf(
+    React.PropTypes.arrayOf(React.PropTypes.string)
+  ),
   onUpdate: React.PropTypes.func
 };
 
